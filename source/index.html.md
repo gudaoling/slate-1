@@ -27,6 +27,97 @@ Welcome to Kinot open platform!You can use our API to access Lora device API end
 curl "api_endpoint_here"
 ```
 
+### Public incoming parameters
+
+Public request parameters are required for each API.
+
+| Parameter name         | Location | Required? | Description                                                  |
+| ---------------------- | -------- | --------- | ------------------------------------------------------------ |
+| X-Ca-Key               | Header   | Yes       | Appkey, ID for an API call, which can be applied for on the Kinot open platform. |
+| X-Ca-Signature         | Header   | Yes       | Request signature string calculated using the signature calculation rule. For more information, see [Signature calculation rule](#Signature). |
+| X-Ca-Timestamp         | Header   | No        | Time stamp in milliseconds passed by the API caller, that is, the milliseconds from January 1, 1970 till now. A time stamp is valid for 15 minutes by default. |
+| X-Ca-Nonce             | Header   | No        | Unique ID of an API request. An X-Ca-Nonce cannot be used repeatedly within 15 minutes. UUID is recommended. It is used together with the time stamp to prevent replay. |
+| Content-MD5            | Header   | No        | When the requested Body is not a Form, the MD5 value of Body needs to be calculated and delivered to the cloud gateway for Body MD5 verification. |
+| X-Ca-Signature-Headers | Header   | No        | Headers containing signatures. Different values are separated by commas (,). By default, only X-Ca-Key contains a signature. To ensure security, add signatures to X-Ca-Timestamp and X-Ca-Nonce, for example, X-X-Ca-Signature-Headers:Ca-Timestamp,X-Ca-Nonce. |
+
+### <span id="Signature">Signature calculation rule
+
+Request signature, which is a digital signature calculated based on the request content. It is used by APIs to identify users. When the client calls an API, the client adds a calculated signature to the request (X-Ca-Signature).
+
+### Signature calculation process
+
+Prepare for the APPkey -> Construct the stringToSign -> Use Secret to calculate the signature.
+
+#### 1. Prepare for the AppKey.
+
+Appkey, ID for an API call, which can be applied for on the kinot open platform.
+
+##### 2. Construct the stringToSign.
+
+> String stringToSign=
+> HTTPMethod + "\n" +
+> Accept + "\n" +                //It is recommended to set Accept Header. If Accept is empty, some HTTP clients set Accept to the default value */*. As a result, signature verification will fail.
+> Content-MD5 + "\n"
+> Content-Type + "\n" +
+> Date + "\n" +
+> Headers +
+> Url
+
+###### HTTPMethod
+
+The value is in capitals, for example, POST.
+
+> If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.
+
+###### Content-MD5
+
+Content-MD5 refers to the MD5 value of Body. The MD5 value is calculated only when the Body is not Form. The calculation is as follows:
+
+String content-MD5 = Base64.encodeBase64(MD5(bodyStream.getbytes("UTF-8"))); bodyStream indicates the byte array.
+
+###### Headers
+
+Headers refer to the string consisting of the key and value of the header with signature. It is recommended to calculate signatures for the headers starting with X-Ca and custom headers. Note that the following parameters cannot be used for headers signature calculation: X-Ca-Signature, X-Ca-Signature-Headers, Accept, Content-MD5, Content-Type, and Date.
+
+###### Headers organization method:
+
+Sort the keys used for headers signature calculation in alphabetical order, and construct the string according to the following rule: If a value of the header is empty, signature is calculated using HeaderKey + “:” + “\n”. Key and the colon (:) cannot be removed.
+
+> String headers =
+> HeaderKey1 + ":" + HeaderValue1 + "\n"\+
+> HeaderKey2 + ":" + HeaderValue2 + "\n"\+
+> ...
+> HeaderKeyN + ":" + HeaderValueN + "\n"
+
+The header keys used for headers signature calculation are separated by commas, and placed into the header of request. The Key is X-Ca-Signature-Headers.
+
+###### Url
+
+URL refers to the Form parameter in Path + Query + Body. The URL is organized as follows: For the Query + Form parameters, the keys are sorted in alphabetical order. If the Query or Form parameter is null, URL is set to Path. The question mark (?) is not required. If the value of a parameter is null, only the key is reserved for signature. The equal sign (=) does not need to be added to the signature.
+
+> String url =
+> Path +
+> "?" +
+> Key1 + "=" + Value1 +
+> "&" + Key2 + "=" + Value2 +
+> ...
+> "&" + KeyN + "=" + ValueN
+
+Note that Query or Form may have multiple values. If there are multiple values, the first value is used for signature calculation.
+
+##### 3. Use Secret to calculate the signature.
+
+> Mac hmacSha256 = Mac.getInstance("HmacSHA256");
+> byte[] keyBytes = secret.getBytes("UTF-8");
+> hmacSha256.init(new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256"));
+> String sign = new String(Base64.encodeBase64(Sha256.doFinal(stringToSign.getBytes("UTF-8")),"UTF-8"));
+
+
+
+Secret is the APP's key, which can be obtained from the Kinot open platform .
+
+
+
 
 
 
@@ -427,7 +518,7 @@ curl -X POST "<your_callback_url>"
 | motor_fail         | int    | 电机故障(0:正常,1:有故障)      |
 | rs_si              | float  | 信号强度,趋于0上下表示信号较强 |
 | updated_at         | string | last update time               |
-| sign               | string | signature string               |
+| sign               | string | signature string  ,see <a href="#sign">Signature calculation rule.</a>                |
 
 ## 4.2 Command changed
 
@@ -470,7 +561,7 @@ curl -X POST "<your_callback_url>"
 | commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
 | reason         | string | reason of failed                                            |
 | updated_at     | string | last update time                                            |
-| sign           | string | signature string                                            |
+| sign           | string | signature string  ,see <a href="#sign">Signature calculation rule.</a>                                             |
 
 # 5.Notify-parking sensor(Lora)
 
@@ -521,7 +612,7 @@ curl -X POST "<your_callback_url>"
 | coil_fault   | int    | 线圈故障(0:正常,1:有故障)      |
 | rs_si        | float  | 信号强度,趋于0上下表示信号较强 |
 | updated_at   | string | last update time               |
-| sign         | string | signature string               |
+| sign         | string | signature string, see <a href="#sign">Signature calculation rule.</a>            |
 
 ## 5.2 Command changed
 
@@ -564,5 +655,5 @@ curl -X POST "<your_callback_url>"
 | commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
 | reason         | string | reason of failed                                            |
 | updated_at     | string | last update time                                            |
-| sign           | string | signature string                                            |
+| sign           | string | signature string ,see <a href="#sign">Signature calculation rule.</a>                                              |
 

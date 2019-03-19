@@ -1,4 +1,4 @@
-# Verify Signature
+# <span id="sign">Verify Signature
 
 #### Rule
 
@@ -16,10 +16,11 @@
 
 一、需要传递的参数如下：
 
-{   
-     "name":"foo",
-     "age":"2",
-     "username":"admin"
+{  
+
+​     "name":"foo",
+​     "age":"2",
+​     "username":"admin"
 }
 
 
