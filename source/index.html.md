@@ -17,15 +17,11 @@ includes:
 search: true
 ---
 
-# 简介
+# Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+欢迎使用Lora设备数据平台! 你可以使用我们提供的API去获取数据库中的各种车位小锁、车位雷达等信息
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# 认证
+# Authentication
 
 > To authorize, use this code:
 
@@ -65,62 +61,51 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# 车位小锁
+# 1.Parking lockers
 
-## 获取所有车位小锁信息
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get All Pakring lockers
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "http://device.api.parks8.com/lora/v1/lockers"
 ```
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419631107,
+            "heartbeat":7036,
+            "voltage":3.659,
+            "frequency":37.919,
+            "locked":7036,
+            "car_detected":7036,
+            "shell_opened":7036,
+            "low_battery":7036,
+            "coil_fault":7036,
+            "bar_position_error":7036,
+            "motor_fail":7036,
+            "rs_si":0,
+            "bt_match_code":"61518-59257-29505-55487-10411-15740",
+            "bt_mac":"aa0018382001",
+            "updated_at":"2019-03-13T10:42:39+08:00"
+        }
+    ],
+    "count":1
+}
+
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all parking lockers.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET http://device.api.parks8.com/lora/v1/lockers`
 
 ### Query Parameters
 
@@ -133,107 +118,143 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## 获取一个特定的车位小锁信息
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get a Specific Parking locker
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl "http://device.api.parks8.com/lora/v1/lockers/419631107"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419631107,
+            "heartbeat":7036,
+            "voltage":3.659,
+            "frequency":37.919,
+            "locked":7036,
+            "car_detected":7036,
+            "shell_opened":7036,
+            "low_battery":7036,
+            "coil_fault":7036,
+            "bar_position_error":7036,
+            "motor_fail":7036,
+            "rs_si":0,
+            "bt_match_code":"61518-59257-29505-55487-10411-15740",
+            "bt_mac":"aa0018382001",
+            "updated_at":"2019-03-13T10:42:39+08:00"
+        }
+    ],
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific parking locker.
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<sn>`
+`GET http://device.api.parks8.com/lora/v1/lockers/<SN>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-sn | 要检索的车位小锁sn 
+SN | The SN of the parking locker to retrieve 
 
-## Delete a Specific Kitten
 
-```ruby
-require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+# 2.Parking sensors
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Get All Parking sensors
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+curl "http://device.api.parks8.com/lora/v1/sensors"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419635201,
+            "heartbeat":36811,
+            "voltage":3.654,
+            "frequency":38.6,
+            "active":1,
+            "car_detected":1,
+            "low_battery":1,
+            "coil_fault":1,
+            "rs_si":-109.5
+        }
+    ],
+   "count":1
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint retrieves all parking sensors.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`GET http://device.api.parks8.com/lora/v1/sensors`
+
+### Query Parameters
+
+| Parameter    | Default | Description                                                  |
+| ------------ | ------- | ------------------------------------------------------------ |
+| include_cats | false   | If set to true, the result will also include cats.           |
+| available    | true    | If set to false, the result will include kittens that have already been adopted. |
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+## Get a Specific Parking sensor
+
+```shell
+curl "http://device.api.parks8.com/lora/v1/sensors/419635201"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419635201,
+            "heartbeat":36811,
+            "voltage":3.654,
+            "frequency":38.6,
+            "active":1,
+            "car_detected":1,
+            "low_battery":1,
+            "coil_fault":1,
+            "rs_si":-109.5
+        }
+    ]
+}
+```
+
+This endpoint retrieves a specific parking sensor.
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/lora/v1/sensors/<SN>`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+| Parameter | Description                              |
+| --------- | ---------------------------------------- |
+| SN        | The SN of the parking sensor to retrieve |
 
