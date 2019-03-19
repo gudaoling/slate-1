@@ -148,6 +148,27 @@ Parameter |Type | Description
 --------- | -----------| -----------
 sn |int | The SN of the parking locker to retrieve 
 
+### Response body detail
+
+| Parameter          | Type   | Description                    |
+| ------------------ | ------ | ------------------------------ |
+| sn                 | int    | 车位小锁SN                     |
+| voltage            | float  | 电池电压，计量单位为毫安(mv)   |
+| frequency          | float  | 线圈频率                       |
+| locked             | int    | 锁状态(0:下锁,1:上锁)          |
+| car_detected       | int    | 车辆检测(0：无车,1:有车)       |
+| shell_opened       | int    | 外壳打开(0:正常,1:打开)        |
+| low_battery        | int    | 电池状态(0:正常,1:电量低)      |
+| coil_fault         | int    | 线圈故障(0:正常,1:有故障)      |
+| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)    |
+| motor_fail         | int    | 电机故障(0:正常,1:有故障)      |
+| rs_si              | float  | 信号强度,趋于0上下表示信号较强 |
+| bt_match_code      | string | 蓝牙匹配码                     |
+| bt_mac             | string | 蓝牙MAC                        |
+| updated_at         | string | 最后更新时间                   |
+
+
+
 
 
 # 2.Parking sensors(Lora)
