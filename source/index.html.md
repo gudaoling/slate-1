@@ -71,11 +71,11 @@ Url
 
 The value is in capitals, for example, POST.
 
-###
 
-If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.
 
-###
+<!--If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.-->
+
+
 
 ###### Content-MD5
 
