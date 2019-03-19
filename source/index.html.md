@@ -25,41 +25,110 @@ search: true
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
 ```
 
-```javascript
-const kittn = require('kittn');
+### 公共入参
 
-let api = kittn.authorize('meowmeowmeow');
+公共请求参数是指每个接口都需要使用到的请求参数。
+
+| 参数名称               | 位置   | 必须 | 描述                                                         |
+| ---------------------- | ------ | ---- | ------------------------------------------------------------ |
+| X-Ca-Key               | Header | 是   | Appkey，调用API的身份标识，可以到阿里云[API网关控制台](https://apigateway.console.aliyun.com/#/apps/list)申请 |
+| X-Ca-Signature         | Header | 是   | 通过签名计算规则计算的请求签名串，参照：[签名计算规则](#Signature) |
+| X-Ca-Timestamp         | Header | 否   | API 调用者传递时间戳，值为当前时间的毫秒数，也就是从1970年1月1日起至今的时间转换为毫秒，时间戳有效时间为15分钟 |
+| X-Ca-Nonce             | Header | 否   | API请求的唯一标识符，15分钟内同一X-Ca-Nonce不能重复使用，建议使用 UUID，结合时间戳防重放 |
+| Content-MD5            | Header | 否   | 当请求 Body 非 Form 表单时，需要计算 Body 的 MD5 值传递给云网关进行 Body MD5 校验 |
+| X-Ca-Signature-Headers | Header | 否   | 指定哪些Header参与签名，支持多值以","分割，默认只有X-Ca-Key参与签名，为安全需要也请将X-Ca-Timestamp、X-Ca-Nonce进行签名，例如：X-X-Ca-Signature-Headers:Ca-Timestamp,X-Ca-Nonce |
+
+### 签名计算规则
+
+请求签名，是基于请求内容计算的数字签名，用于API识别用户身份。客户端调用API时，需要在请求中添加计算的签名（X-Ca-Signature）。
+
+#### 签名计算流程
+
+准备APPkey → 构造待签名字符串stringToSign → 使用Secret计算签名
+
+##### 1.准备APPKey
+
+Appkey，调用API的身份标识，可以到阿里云[API网关控制台](https://apigateway.console.aliyun.com/#/apps/list)申请
+
+##### 2.构造待签名字符串stringToSign
+
+```
+String stringToSign=
+HTTPMethod+"\n"+
+Accept+"\n"+   //建议显示设置 Accept Header。当 Accept 为空时，部分 Http 客户端会给 Accept 设置默认值为 */*，导致签名校验失败。
+Content-MD5+"\n"
+Content-Type+"\n" +
+Date+"\n"+
+Headers +
+Url
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+###### HTTPMethod
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+为全大写，如 POST。
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+```
+Accept、Content-MD5、Content-Type、Date 如果为空也需要添加换行符”\n”，Headers如果为空不需要添加”\n”。
+```
 
-`Authorization: meowmeowmeow`
+###### Content-MD5
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+Content-MD5 是指 Body 的 MD5 值，只有当 Body 非 Form 表单时才计算 MD5，计算方式为：
+
+String content-MD5 = Base64.encodeBase64(MD5(bodyStream.getbytes("UTF-8"))); bodyStream 为字节数组。
+
+###### Headers
+
+Headers 是指参与 Headers 签名计算的 Header 的 Key、Value 拼接的字符串，建议对 X-Ca 开头以及自定义 Header 计算签名，注意如下参数不参与 Headers 签名计算：X-Ca-Signature、X-Ca-Signature-Headers、Accept、Content-MD5、Content-Type、Date。
+
+###### Headers 组织方法：
+
+先对参与 Headers 签名计算的 Header的Key 按照字典排序后使用如下方式拼接，如果某个 Header 的 Value 为空，则使用 HeaderKey + “:” + “\n”参与签名，需要保留 Key 和英文冒号。
+
+```
+String headers =
+HeaderKey1 + ":" + HeaderValue1 + "\n"\+
+HeaderKey2 + ":" + HeaderValue2 + "\n"\+
+...
+HeaderKeyN + ":" + HeaderValueN + "\n"
+```
+
+将 Headers 签名中 Header 的 Key 使用英文逗号分割放到 Request 的 Header 中，Key为：X-Ca-Signature-Headers。
+
+###### Url
+
+Url 指 Path + Query + Body 中 Form 参数，组织方法：对 Query+Form 参数按照字典对 Key 进行排序后按照如下方法拼接，如果 Query 或 Form 参数为空，则 Url = Path，不需要添加 ？，如果某个参数的 Value 为空只保留 Key 参与签名，等号不需要再加入签名。
+
+```
+String url =
+Path +
+"?" +
+Key1 + "=" + Value1 +
+"&" + Key2 + "=" + Value2 +
+...
+"&" + KeyN + "=" + ValueN
+```
+
+注意这里 Query 或 Form 参数的 Value 可能有多个，多个的时候只取第一个 Value 参与签名计算。
+
+##### 3.使用Secret计算签名
+
+```
+Mac hmacSha256 = Mac.getInstance("HmacSHA256");
+byte[] keyBytes = secret.getBytes("UTF-8");
+hmacSha256.init(new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256"));
+String sign = new String(Base64.encodeBase64(Sha256.doFinal(stringToSign.getBytes("UTF-8")),"UTF-8"));
+```
+
+Secret 为 APP 的密钥，请在[应用管理](https://apigateway.console.aliyun.com/#/apps/list)中获取。
+
+
+
 
 # 1.Parking lockers
 
