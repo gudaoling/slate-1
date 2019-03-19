@@ -63,10 +63,10 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 # 1.Parking lockers
 
-## Get All Pakring lockers
+## 1.1 Get All Pakring lockers
 
 ```shell
-curl "http://device.api.parks8.com/lora/v1/lockers"
+curl -X GET "http://device.api.parks8.com/lora/v1/lockers"
 ```
 
 
@@ -105,7 +105,7 @@ This endpoint retrieves all parking lockers.
 
 ### HTTP Request
 
-`GET http://device.api.parks8.com/lora/v1/lockers`
+`GET  http://device.api.parks8.com/lora/v1/lockers`
 
 ### Query Parameters
 
@@ -118,10 +118,10 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Parking locker
+## 1.2 Get a Specific Parking locker
 
 ```shell
-curl "http://device.api.parks8.com/lora/v1/lockers/419631107"
+curl -X GET "http://device.api.parks8.com/lora/v1/lockers/419631107"
 ```
 
 > The above command returns JSON structured like this:
@@ -170,10 +170,10 @@ SN | The SN of the parking locker to retrieve
 
 # 2.Parking sensors
 
-## Get All Parking sensors
+## 2.1 Get All Parking sensors
 
 ```shell
-curl "http://device.api.parks8.com/lora/v1/sensors"
+curl -X GET "http://device.api.parks8.com/lora/v1/sensors"
 ```
 
 > The above command returns JSON structured like this:
@@ -207,19 +207,19 @@ This endpoint retrieves all parking sensors.
 
 ### Query Parameters
 
-| Parameter    | Default | Description                                                  |
-| ------------ | ------- | ------------------------------------------------------------ |
-| include_cats | false   | If set to true, the result will also include cats.           |
-| available    | true    | If set to false, the result will include kittens that have already been adopted. |
+| Parameter | Default | Description   |
+| --------- | ------- | ------------- |
+| pageNum   | 1       | 当前页码数.   |
+| pageSize  | 20      | 每页显示数量. |
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Parking sensor
+## 2.2 Get a Specific Parking sensor
 
 ```shell
-curl "http://device.api.parks8.com/lora/v1/sensors/419635201"
+curl -X GET "http://device.api.parks8.com/lora/v1/sensors/419635201"
 ```
 
 > The above command returns JSON structured like this:
@@ -257,4 +257,282 @@ This endpoint retrieves a specific parking sensor.
 | Parameter | Description                              |
 | --------- | ---------------------------------------- |
 | SN        | The SN of the parking sensor to retrieve |
+
+# 3.订阅
+
+## 3.1 设置设备信息变化回调地址
+
+```shell
+curl -X POST "http://device.api.parks8.com/lora/v1/subscribe"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419635201,
+            "heartbeat":36811,
+            "voltage":3.654,
+            "frequency":38.6,
+            "active":1,
+            "car_detected":1,
+            "low_battery":1,
+            "coil_fault":1,
+            "rs_si":-109.5
+        }
+    ],
+   "count":1
+}
+```
+
+This endpoint retrieves all parking sensors.
+
+### HTTP Request
+
+`POST http://device.api.parks8.com/lora/v1/subscribe`
+
+### Query Parameters
+
+| Parameter | Default | Description   |
+| --------- | ------- | ------------- |
+| pageNum   | 1       | 当前页码数.   |
+| pageSize  | 20      | 每页显示数量. |
+
+## 3.2 获取设置设备信息变化回调地址
+
+```shell
+curl -X GET "http://device.api.parks8.com/lora/v1/subscribe"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "device_type":38,
+            "status_changed_callback_url":3.654,
+            "commandResp_callback_url":38.6,
+            "update_at":"2019-03-13T10:42:39+08:00",
+        }
+    ]
+}
+```
+
+This endpoint retrieves a specific parking sensor.
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/lora/v1/sensors/<SN>`
+
+### URL Parameters
+
+| Parameter | Description                              |
+| --------- | ---------------------------------------- |
+| SN        | The SN of the parking sensor to retrieve |
+
+# 4.推送-车位小锁
+
+## 4.1 状态变化
+
+```shell
+curl -X POST "<your_callback_url>"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+	"sn": 419631107,
+	"voltage": 3.659,
+	"frequency": 37.919,
+	"locked": 0,
+	"car_detected": 1,
+	"shell_opened": 0,
+	"low_battery": 0,
+	"coil_fault": 0,
+	"bar_position_error": 0,
+	"motor_fail": 1,
+	"rs_si": 1,
+	"updated_at": "2019-03-13T10:42:39+08:00",
+    "sign":"641EB269A46944D404EC6BEF902E7918"
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK"
+}
+```
+
+### HTTP Request
+
+`POST <your_callback_url>`
+
+### Request body detail
+
+| Parameter          | type   | Description |
+| ------------------ | ------ | ----------- |
+| sn                 | int    |             |
+| voltage            | float  |             |
+| frequency          | float  |             |
+| locked             | int    |             |
+| car_detected       | int    |             |
+| shell_opened       | int    |             |
+| low_battery        | int    |             |
+| coil_fault         | int    |             |
+| bar_position_error | int    |             |
+| motor_fail         | int    |             |
+| rs_si              | float  |             |
+| updated_at         | string |             |
+| sign               | string |             |
+|                    |        |             |
+
+## 4.2 命令变化
+
+```shell
+curl -X POST "<your_callback_url>"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+    "guid": "3019FF21F07FA9EFD7CA1DBBE8AF3749",
+	"sn": 419631107,
+	"commnad_status": "succeeded",
+	"reason":"NULL",
+    "updated_at": "2019-03-13T10:42:39+08:00",
+    "sign":"641EB269A46944D404EC6BEF902E7918"
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK"
+}
+```
+
+### HTTP Request
+
+`POST <your_callback_url>`
+
+### Request body detail
+
+| Parameter      | type   | Description                                  |
+| -------------- | ------ | -------------------------------------------- |
+| guid           | string | guid                                         |
+| sn             | int    | sn of parking locker                         |
+| commnad_status | string | sending=>pending=>arrived=>succeeded=>failed |
+| reason         | string | reason for failure                           |
+| sign           | string |                                              |
+|                |        |                                              |
+
+# 5.推送-车位雷达
+
+## 5.1 状态变化
+
+```shell
+curl -X POST "<your_callback_url>"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+	"sn": 419631107,
+	"voltage": 3.659,
+	"frequency": 37.919,
+	"car_detected": 1,
+	"low_battery": 0,
+    "coil_fault": 0,
+	"rs_si": 1,
+	"updated_at": "2019-03-13T10:42:39+08:00",
+    "sign":"641EB269A46944D404EC6BEF902E7918"
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK"
+}
+```
+
+### HTTP Request
+
+`POST <your_callback_url>`
+
+### Request body detail
+
+| Parameter    | type   | Description |
+| ------------ | ------ | ----------- |
+| sn           | int    |             |
+| voltage      | float  |             |
+| frequency    | float  |             |
+| car_detected | int    |             |
+| low_battery  | int    |             |
+| coil_fault   | int    |             |
+| rs_si        | float  |             |
+| sign         | string |             |
+
+## 5.2 命令变化
+
+```shell
+curl -X POST "<your_callback_url>"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+    "guid": "3019FF21F07FA9EFD7CA1DBBE8AF3749",
+	"sn": 419631107,
+	"commnad_status": "succeeded",
+	"reason":"NULL",
+    "updated_at": "2019-03-13T10:42:39+08:00",
+    "sign":"641EB269A46944D404EC6BEF902E7918"
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK"
+}
+```
+
+### HTTP Request
+
+`POST <your_callback_url>`
+
+### Request body detail
+
+| Parameter      | type   | Description                                  |
+| -------------- | ------ | -------------------------------------------- |
+| guid           | string | guid                                         |
+| sn             | int    | sn of parking sensor                         |
+| commnad_status | string | sending=>pending=>arrived=>succeeded=>failed |
+| reason         | string | reason for failure                           |
+| updated_at     | string |                                              |
+| sign           | string |                                              |
+|                |        |                                              |
 
