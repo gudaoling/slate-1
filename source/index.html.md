@@ -54,18 +54,22 @@ Appkey, ID for an API call, which can be applied for on the kinot open platform.
 
 ##### 2. Construct the stringToSign.
 
-###### ###
-
-String stringToSign=
+`String stringToSign=
 HTTPMethod + "\n" +
 Accept + "\n" +                //It is recommended to set Accept Header. If Accept is empty, some HTTP clients set Accept to the default value */*. As a result, signature verification will fail.
 Content-MD5 + "\n"
 Content-Type + "\n" +
 Date + "\n" +
 Headers +
-Url
+Url`
 
-###
+
+
+
+
+
+
+
 
 ###### HTTPMethod
 
@@ -73,7 +77,7 @@ The value is in capitals, for example, POST.
 
 
 
-<!--If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.-->
+If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.
 
 
 
