@@ -54,20 +54,28 @@ Appkey, ID for an API call, which can be applied for on the kinot open platform.
 
 ##### 2. Construct the stringToSign.
 
-> String stringToSign=
-> HTTPMethod + "\n" +
-> Accept + "\n" +                //It is recommended to set Accept Header. If Accept is empty, some HTTP clients set Accept to the default value */*. As a result, signature verification will fail.
-> Content-MD5 + "\n"
-> Content-Type + "\n" +
-> Date + "\n" +
-> Headers +
-> Url
+###### ###
+
+String stringToSign=
+HTTPMethod + "\n" +
+Accept + "\n" +                //It is recommended to set Accept Header. If Accept is empty, some HTTP clients set Accept to the default value */*. As a result, signature verification will fail.
+Content-MD5 + "\n"
+Content-Type + "\n" +
+Date + "\n" +
+Headers +
+Url
+
+###
 
 ###### HTTPMethod
 
 The value is in capitals, for example, POST.
 
-> If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.
+###
+
+If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.
+
+###
 
 ###### Content-MD5
 
@@ -83,11 +91,15 @@ Headers refer to the string consisting of the key and value of the header with s
 
 Sort the keys used for headers signature calculation in alphabetical order, and construct the string according to the following rule: If a value of the header is empty, signature is calculated using HeaderKey + “:” + “\n”. Key and the colon (:) cannot be removed.
 
-> String headers =
-> HeaderKey1 + ":" + HeaderValue1 + "\n"\+
-> HeaderKey2 + ":" + HeaderValue2 + "\n"\+
-> ...
-> HeaderKeyN + ":" + HeaderValueN + "\n"
+###
+
+String headers =
+HeaderKey1 + ":" + HeaderValue1 + "\n"\+
+HeaderKey2 + ":" + HeaderValue2 + "\n"\+
+...
+HeaderKeyN + ":" + HeaderValueN + "\n"
+
+###
 
 The header keys used for headers signature calculation are separated by commas, and placed into the header of request. The Key is X-Ca-Signature-Headers.
 
@@ -95,24 +107,30 @@ The header keys used for headers signature calculation are separated by commas, 
 
 URL refers to the Form parameter in Path + Query + Body. The URL is organized as follows: For the Query + Form parameters, the keys are sorted in alphabetical order. If the Query or Form parameter is null, URL is set to Path. The question mark (?) is not required. If the value of a parameter is null, only the key is reserved for signature. The equal sign (=) does not need to be added to the signature.
 
-> String url =
-> Path +
-> "?" +
-> Key1 + "=" + Value1 +
-> "&" + Key2 + "=" + Value2 +
-> ...
-> "&" + KeyN + "=" + ValueN
+###
+
+String url =
+Path +
+"?" +
+Key1 + "=" + Value1 +
+"&" + Key2 + "=" + Value2 +
+...
+"&" + KeyN + "=" + ValueN
+
+###
 
 Note that Query or Form may have multiple values. If there are multiple values, the first value is used for signature calculation.
 
 ##### 3. Use Secret to calculate the signature.
 
-> Mac hmacSha256 = Mac.getInstance("HmacSHA256");
-> byte[] keyBytes = secret.getBytes("UTF-8");
-> hmacSha256.init(new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256"));
-> String sign = new String(Base64.encodeBase64(Sha256.doFinal(stringToSign.getBytes("UTF-8")),"UTF-8"));
+###
 
+Mac hmacSha256 = Mac.getInstance("HmacSHA256");
+byte[] keyBytes = secret.getBytes("UTF-8");
+hmacSha256.init(new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256"));
+String sign = new String(Base64.encodeBase64(Sha256.doFinal(stringToSign.getBytes("UTF-8")),"UTF-8"));
 
+###
 
 Secret is the APP's key, which can be obtained from the Kinot open platform .
 
