@@ -65,9 +65,9 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+# 车位小锁
 
-## Get All Kittens
+## 获取所有车位小锁信息
 
 ```ruby
 require 'kittn'
@@ -133,7 +133,7 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Kitten
+## 获取一个特定的车位小锁信息
 
 ```ruby
 require 'kittn'
@@ -179,13 +179,13 @@ This endpoint retrieves a specific kitten.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://example.com/kittens/<sn>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+sn | 要检索的车位小锁sn 
 
 ## Delete a Specific Kitten
 
