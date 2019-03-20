@@ -774,18 +774,18 @@ curl -X POST "<your_callback_url>"
 
 ### Request body detail
 
-| Parameter    | Type   | Description                              |
-| ------------ | ------ | ---------------------------------------- |
-| sn           | int    | 车位雷达SN                               |
-| voltage      | float  | 电池电压，计量单位为毫安(mv)             |
-| frequency    | float  | 线圈频率                                 |
-| car_detected | int    | 车辆检测状态(0:无车,1:有车)              |
-| low_battery  | int    | 电池状态(0:正常,1:电量低)                |
-| coil_fault   | int    | 线圈故障(0:正常,1:有故障)                |
-| rs_si        | float  | 信号强度,趋于0上下表示信号较强           |
-| updated_at   | string | last update time                         |
-| sign         | string | signature string,<a href="#sign">See</a> |
-| device_type  | int    |                                          |
+| Parameter    | Type   | Description                          |
+| ------------ | ------ | ------------------------------------ |
+| sn           | int    | 车位雷达SN                           |
+| voltage      | float  | 电池电压，计量单位为毫安(mv)         |
+| frequency    | float  | 线圈频率                             |
+| car_detected | int    | 车辆检测状态(0:无车,1:有车)          |
+| low_battery  | int    | 电池状态(0:正常,1:电量低)            |
+| coil_fault   | int    | 线圈故障(0:正常,1:有故障)            |
+| rs_si        | float  | 信号强度,趋于0上下表示信号较强       |
+| updated_at   | string | last update time                     |
+| sign         | string | signature string,[See](#sign-string) |
+| device_type  | int    |                                      |
 
 ## 6.2 Command changed
 
@@ -832,4 +832,3 @@ curl -X POST "<your_callback_url>"
 | sign           | string | signature string ,<a href="#sign">See</a>                   |
 | device_type    | int    |                                                             |
 
-<a name="sign">Verify Signature</a>
