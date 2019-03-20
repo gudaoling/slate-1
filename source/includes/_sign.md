@@ -1,4 +1,4 @@
-# <a name="sign-string">Verify Signature</a>
+# Verify Signature
 
 #### Rule
 
