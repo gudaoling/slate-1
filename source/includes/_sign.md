@@ -1,4 +1,4 @@
-# <span id="sign">Verify Signature
+# Verify Signature
 
 #### Rule
 

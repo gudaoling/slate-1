@@ -1,7 +1,7 @@
 # Errors
 
 
-Lora API uses the following error codes:
+ error codes:
 
 
 Error Code | Meaning
@@ -17,3 +17,6 @@ Error Code | Meaning
 429 | Too Many Requests -- You're requesting too many kittens! Slow down!
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+
+
+
