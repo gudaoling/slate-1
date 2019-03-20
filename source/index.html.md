@@ -832,3 +832,4 @@ curl -X POST "<your_callback_url>"
 | sign           | string | signature string ,<a href="#sign">See</a>                   |
 | device_type    | int    |                                                             |
 
+<a name="sign">Verify Signature</a>
