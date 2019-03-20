@@ -1,4 +1,4 @@
-# <span id = "jump">跳转到的位置</span>Verify Signature
+# <a name="sign">Verify Signature</a>
 
 #### Rule
 
