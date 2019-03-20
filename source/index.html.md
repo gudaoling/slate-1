@@ -333,10 +333,10 @@ This endpoint retrieves all parking sensors.
 
 ### Query Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| offset    | int  | 1<=offset<(count/limit) |
-| limit     | int  | 10<=limit<=100          |
+| Parameter | Type | Description               |
+| --------- | ---- | ------------------------- |
+| offset    | int  | 0<=offset<(count/limit)+1 |
+| limit     | int  | 10<=limit<=100            |
 
 ### Response body detail
 
