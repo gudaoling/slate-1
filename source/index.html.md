@@ -333,10 +333,10 @@ This endpoint retrieves all parking sensors.
 
 ### Query Parameters
 
-| Parameter | Type | Description               |
-| --------- | ---- | ------------------------- |
-| offset    | int  | 0<=offset<(count/limit)+1 |
-| limit     | int  | 10<=limit<=100            |
+| Parameter | Type | Description             |
+| --------- | ---- | ----------------------- |
+| offset    | int  | 1<=offset<(count/limit) |
+| limit     | int  | 10<=limit<=100          |
 
 ### Response body detail
 
@@ -829,6 +829,6 @@ curl -X POST "<your_callback_url>"
 | commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
 | reason         | string | reason of failed                                            |
 | updated_at     | string | last update time                                            |
-| sign           | string | signature string                                            |
+| sign           | string | signature string ,[See ](#sign)                             |
 | device_type    | int    |                                                             |
 
