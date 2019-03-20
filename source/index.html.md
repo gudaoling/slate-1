@@ -174,7 +174,7 @@ curl -X GET "http://device.api.parks8.com/lora/v1/lockers?offset=1&limit=10"
             "rs_si":0,
             "bt_match_code":"61518-59257-29505-55487-10411-15740",
             "bt_mac":"aa0018382001",
-            "updated_at":"2019-03-13T10:42:39+08:00"  
+            "updated_at":"2019-03-13T10:42:39+08:00"
         }
     ],
     "count":1
@@ -197,7 +197,7 @@ limit | int | 10<=limit<=100
 
 ### Response body detail
 
-| Parameter          | type   | Description                    |
+| Parameter          | Type   | Description                    |
 | ------------------ | ------ | ------------------------------ |
 | sn                 | int    | 车位小锁SN                     |
 | voltage            | float  | 电池电压，计量单位为毫安(mv)   |
@@ -331,7 +331,7 @@ This endpoint retrieves all parking sensors.
 
 ### Response body detail
 
-| Parameter    | type   | Description                    |
+| Parameter    | Type   | Description                    |
 | ------------ | ------ | ------------------------------ |
 | sn           | int    | 车位雷达SN                     |
 | voltage      | float  | 电池电压，计量单位为毫安(mv)   |
@@ -384,7 +384,7 @@ This endpoint retrieves a specific parking sensor.
 
 ### Response body detail
 
-| Parameter    | type   | Description                    |
+| Parameter    | Type   | Description                    |
 | ------------ | ------ | ------------------------------ |
 | sn           | int    | 车位雷达SN                     |
 | voltage      | float  | 电池电压，计量单位为毫安(mv)   |
@@ -397,13 +397,108 @@ This endpoint retrieves a specific parking sensor.
 
 
 
-# 3. Subscribe notify
+# 3. Command
 
-## 3.1 Set  notify 
+## 3.1 send command
+
+```shell
+curl -X POST "http://device.api.parks8.com/lora/v1/commands"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+	"sn": 419635201,
+	"command": 38,
+	"parameter": {
+		"key": "actived",
+		"value": "yes"
+	}
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+	"code": 0,
+	"message": "OK",
+	"objects": [{
+		"sn": 419635201,
+	    "guid":"ED33B369589222DB25B298C6E06C5DAE",
+		"command": 38,
+	  	"command_status": "pending",
+		"parameter": {
+			"key": "actived",
+			"value": "yes"
+		}
+	}]
+}
+```
+
+
+
+### HTTP Request
+
+`POST http://device.api.parks8.com/lora/v1/commands`
+
+### Request body detail
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| sn        | int  |             |
+| command   | int  | ?未定义     |
+| parameter | JSON | ?未说明     |
+
+## 3.2 Get a Specific Command 
+
+```shell
+curl -X GET "http://device.api.parks8.com/lora/v1/commands?guid=<guid>"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+	"code": 0,
+	"message": "OK",
+	"objects": [{
+		"sn": 419635201,
+	    "guid":"ED33B369589222DB25B298C6E06C5DAE",
+		"command": 38,
+	  	"command_status": "pending",
+		"parameter": {
+			"key": "actived",
+			"value": "yes"
+		}
+	}]
+}
+```
+
+
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/lora/v1/commands?guid=<guid>`
+
+### Query Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| guid      | string | 发送命令后返回的guid |
+
+
+
+
+
+# 4. Subscribe notify
+
+## 4.1 Set  notification configuration info
 
 ```shell
 
-curl -X POST "http://device.api.parks8.com/lora/v1/notifys"
+curl -X POST "http://device.api.parks8.com/lora/v1/notifications"
 ```
 
 > The above command request JSON structured like this:
@@ -426,7 +521,7 @@ curl -X POST "http://device.api.parks8.com/lora/v1/notifys"
         {
             "device_type":38,
             "status_changed_callback_url":3.654,
-            "commandResp_callback_url":38.6
+            "command_resp_callback_url":38.6
         }
     ]
 }
@@ -436,7 +531,7 @@ curl -X POST "http://device.api.parks8.com/lora/v1/notifys"
 
 ### HTTP Request
 
-`POST http://device.api.parks8.com/lora/v1/notifys`
+`POST http://device.api.parks8.com/lora/v1/notifications`
 
 ### Request body detail
 
@@ -446,10 +541,10 @@ curl -X POST "http://device.api.parks8.com/lora/v1/notifys"
 | status_changed_callback_url | string |                                                              |
 | commandResp_callback_url    | string |                                                              |
 
-## 3.2 Get callback url for notify 
+## 4.2 Get notification configuration info
 
 ```shell
-curl -X GET "http://device.api.parks8.com/lora/v1/notifys?device_type=<18>"
+curl -X GET "http://device.api.parks8.com/lora/v1/notifications?device_type=<18>"
 ```
 
 > The above command returns JSON structured like this:
@@ -462,7 +557,7 @@ curl -X GET "http://device.api.parks8.com/lora/v1/notifys?device_type=<18>"
         {
             "device_type":38,
             "status_changed_callback_url":3.654,
-            "commandResp_callback_url":38.6,
+            "command_resp_callback_url":38.6,
             "update_at":"2019-03-13T10:42:39+08:00",
         }
     ]
@@ -473,7 +568,7 @@ curl -X GET "http://device.api.parks8.com/lora/v1/notifys?device_type=<18>"
 
 ### HTTP Request
 
-`GET http://device.api.parks8.com/lora/v1/notifys?device_type=<18>`
+`GET http://device.api.parks8.com/lora/v1/notifications?device_type=<18>`
 
 ### Query Parameters
 
@@ -483,9 +578,50 @@ curl -X GET "http://device.api.parks8.com/lora/v1/notifys?device_type=<18>"
 
 
 
-# 4.Notify-parking locker(Lora)
+## 4.3 Test notification
 
-## 4.1 Status changed
+```shell
+curl -X POST "http://device.api.parks8.com/lora/v1/test/notifications"
+```
+
+> The above command request JSON structured like this:
+
+```json
+{
+    "sn": 419631107, 
+    "callback_type": "status_changed"
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK"
+}
+```
+
+
+
+### HTTP Request
+
+`POST http://device.api.parks8.com/lora/v1/test/notifications`
+
+### Request body detail
+
+| Parameter     | Type   | Description                   |
+| ------------- | ------ | ----------------------------- |
+| sn            | int    |                               |
+| callback_type | string | (status_changed,command_resp) |
+
+
+
+
+
+# 5.Notify-parking locker(Lora)
+
+## 5.1 Status changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -507,7 +643,8 @@ curl -X POST "<your_callback_url>"
 	"motor_fail": 1,
 	"rs_si": 1,
 	"updated_at": "2019-03-13T10:42:39+08:00",
-    "sign":"641EB269A46944D404EC6BEF902E7918"
+    "sign":"641EB269A46944D404EC6BEF902E7918",
+    "device_type":38,
 }
 ```
 
@@ -526,23 +663,24 @@ curl -X POST "<your_callback_url>"
 
 ### Request body detail
 
-| Parameter          | type   | Description                    |
-| ------------------ | ------ | ------------------------------ |
-| sn                 | int    | 车位小锁SN                     |
-| voltage            | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency          | float  | 线圈频率                       |
-| locked             | int    | 锁状态(0:下锁,1:上锁)          |
-| car_detected       | int    | 车辆检测(0：无车,1:有车)       |
-| shell_opened       | int    | 外壳打开(0:正常,1:打开)        |
-| low_battery        | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault         | int    | 线圈故障(0:正常,1:有故障)      |
-| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)    |
-| motor_fail         | int    | 电机故障(0:正常,1:有故障)      |
-| rs_si              | float  | 信号强度,趋于0上下表示信号较强 |
-| updated_at         | string | last update time               |
-| sign               | string | signature string  ,see <a href="#sign">Signature calculation rule.</a>                |
+| Parameter          | Type   | Description                                                  |
+| ------------------ | ------ | ------------------------------------------------------------ |
+| sn                 | int    | 车位小锁SN                                                   |
+| voltage            | float  | 电池电压，计量单位为毫安(mv)                                 |
+| frequency          | float  | 线圈频率                                                     |
+| locked             | int    | 锁状态(0:下锁,1:上锁)                                        |
+| car_detected       | int    | 车辆检测(0：无车,1:有车)                                     |
+| shell_opened       | int    | 外壳打开(0:正常,1:打开)                                      |
+| low_battery        | int    | 电池状态(0:正常,1:电量低)                                    |
+| coil_fault         | int    | 线圈故障(0:正常,1:有故障)                                    |
+| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)                                  |
+| motor_fail         | int    | 电机故障(0:正常,1:有故障)                                    |
+| rs_si              | float  | 信号强度,趋于0上下表示信号较强                               |
+| updated_at         | string | last update time                                             |
+| sign               | string | signature string  ,see <a href="#sign">Signature calculation rule.</a> |
+| device_type        | int    | 设备类型                                                     |
 
-## 4.2 Command changed
+## 5.2 Command changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -557,7 +695,8 @@ curl -X POST "<your_callback_url>"
 	"commnad_status": "succeeded",
 	"reason":"NULL",
     "updated_at": "2019-03-13T10:42:39+08:00",
-    "sign":"641EB269A46944D404EC6BEF902E7918"
+    "sign":"641EB269A46944D404EC6BEF902E7918",
+     "device_type":38,
 }
 ```
 
@@ -576,18 +715,19 @@ curl -X POST "<your_callback_url>"
 
 ### Request body detail
 
-| Parameter      | type   | Description                                                 |
-| -------------- | ------ | ----------------------------------------------------------- |
-| guid           | string | guid                                                        |
-| sn             | int    | SN of parking locker                                        |
-| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
-| reason         | string | reason of failed                                            |
-| updated_at     | string | last update time                                            |
-| sign           | string | signature string  ,see <a href="#sign">Signature calculation rule.</a>                                             |
+| Parameter      | Type   | Description                                                  |
+| -------------- | ------ | ------------------------------------------------------------ |
+| guid           | string | guid                                                         |
+| sn             | int    | SN of parking locker                                         |
+| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed)  |
+| reason         | string | reason of failed                                             |
+| updated_at     | string | last update time                                             |
+| sign           | string | signature string  ,see <a href="#sign">Signature calculation rule.</a> |
+| device_type    | int    | see                                                          |
 
-# 5.Notify-parking sensor(Lora)
+# 6.Notify-parking sensor(Lora)
 
-## 5.1 Stauts changed
+## 6.1 Status changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -605,7 +745,8 @@ curl -X POST "<your_callback_url>"
     "coil_fault": 0,
 	"rs_si": 1,
 	"updated_at": "2019-03-13T10:42:39+08:00",
-    "sign":"641EB269A46944D404EC6BEF902E7918"
+    "sign":"641EB269A46944D404EC6BEF902E7918",
+    "device_type":38,
 }
 ```
 
@@ -624,19 +765,20 @@ curl -X POST "<your_callback_url>"
 
 ### Request body detail
 
-| Parameter    | type   | Description                    |
-| ------------ | ------ | ------------------------------ |
-| sn           | int    | 车位雷达SN                     |
-| voltage      | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency    | float  | 线圈频率                       |
-| car_detected | int    | 车辆检测状态(0:无车,1:有车)    |
-| low_battery  | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault   | int    | 线圈故障(0:正常,1:有故障)      |
-| rs_si        | float  | 信号强度,趋于0上下表示信号较强 |
-| updated_at   | string | last update time               |
-| sign         | string | signature string, see <a href="#sign">Signature calculation rule.</a>            |
+| Parameter    | Type   | Description                                                  |
+| ------------ | ------ | ------------------------------------------------------------ |
+| sn           | int    | 车位雷达SN                                                   |
+| voltage      | float  | 电池电压，计量单位为毫安(mv)                                 |
+| frequency    | float  | 线圈频率                                                     |
+| car_detected | int    | 车辆检测状态(0:无车,1:有车)                                  |
+| low_battery  | int    | 电池状态(0:正常,1:电量低)                                    |
+| coil_fault   | int    | 线圈故障(0:正常,1:有故障)                                    |
+| rs_si        | float  | 信号强度,趋于0上下表示信号较强                               |
+| updated_at   | string | last update time                                             |
+| sign         | string | signature string, see <a href="#sign">Signature calculation rule.</a> |
+| device_type  | int    | see                                                          |
 
-## 5.2 Command changed
+## 6.2 Command changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -651,7 +793,8 @@ curl -X POST "<your_callback_url>"
 	"commnad_status": "succeeded",
 	"reason":"NULL",
     "updated_at": "2019-03-13T10:42:39+08:00",
-    "sign":"641EB269A46944D404EC6BEF902E7918"
+    "sign":"641EB269A46944D404EC6BEF902E7918",
+    "device_type":38,
 }
 ```
 
@@ -670,12 +813,12 @@ curl -X POST "<your_callback_url>"
 
 ### Request body detail
 
-| Parameter      | type   | Description                                                 |
-| -------------- | ------ | ----------------------------------------------------------- |
-| guid           | string | guid                                                        |
-| sn             | int    | SN of parking sensor                                        |
-| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
-| reason         | string | reason of failed                                            |
-| updated_at     | string | last update time                                            |
-| sign           | string | signature string ,see <a href="#sign">Signature calculation rule.</a>                                              |
+| Parameter      | Type   | Description                                                  |
+| -------------- | ------ | ------------------------------------------------------------ |
+| guid           | string | guid                                                         |
+| sn             | int    | SN of parking sensor                                         |
+| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed)  |
+| reason         | string | reason of failed                                             |
+| updated_at     | string | last update time                                             |
+| sign           | string | signature string ,see <a href="#sign">Signature calculation rule.</a> |
 
