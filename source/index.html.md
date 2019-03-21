@@ -158,6 +158,7 @@ Note that Query or Form may have multiple values. If there are multiple values, 
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=1&limit=10"
+     -H "Content-Type: application/json"
 ```
 
 
@@ -229,6 +230,7 @@ limit | int | 10<=limit<=100
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command returns JSON structured like this:
@@ -300,6 +302,7 @@ sn |int | The SN of the parking locker to retrieve
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=1&limit=10"
+     -H "Content-Type: application/json"
 ```
 
 > The above command returns JSON structured like this:
@@ -357,6 +360,7 @@ This endpoint retrieves all parking sensors.
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors/<sn>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command returns JSON structured like this:
@@ -412,6 +416,7 @@ This endpoint retrieves a specific parking sensor.
 
 ```shell
 curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -464,6 +469,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command returns JSON structured like this:
@@ -508,6 +514,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 ```shell
 
 curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -554,6 +561,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type=<18>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command returns JSON structured like this:
@@ -591,6 +599,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type
 
 ```shell
 curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
+     -H ""Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -634,6 +643,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
 
 ```shell
 curl -X POST "<your_callback_url>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -687,12 +697,13 @@ curl -X POST "<your_callback_url>"
 | rs_si              | float  | 信号强度,趋于0上下表示信号较强             |
 | updated_at         | string | last update time                           |
 | sign               | string | signature string  ,<a href='#sign'>See</a> |
-| device_type        | int    | 设备类型                                   |
+| device_type        | int    |                                            |
 
 ## 5.2 Command changed
 
 ```shell
 curl -X POST "<your_callback_url>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -740,6 +751,7 @@ curl -X POST "<your_callback_url>"
 
 ```shell
 curl -X POST "<your_callback_url>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
@@ -791,6 +803,7 @@ curl -X POST "<your_callback_url>"
 
 ```shell
 curl -X POST "<your_callback_url>"
+     -H "Content-Type: application/json"
 ```
 
 > The above command request JSON structured like this:
