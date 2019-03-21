@@ -149,6 +149,10 @@ Note that Query or Form may have multiple values. If there are multiple values, 
 
 
 
+Help:https://www.alibabacloud.com/help/doc-detail/43590.htm?spm=a2c63.p38356.b99.55.6f772eeaeSs3Zz
+
+Postman debug:https://help.aliyun.com/document_detail/93641.html?spm=5176.11065259.1996646101.searchclickresult.56371c7cDmDhLM
+
 
 
 
