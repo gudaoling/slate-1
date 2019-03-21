@@ -133,7 +133,7 @@ Note that Query or Form may have multiple values. If there are multiple values, 
 
 
 
-Secret is the APP's key, which can be obtained from the Kinot open platform .
+<a name='secret'>Secret is the APP's key </a>, which can be obtained from the Kinot open platform .
 
 
 
@@ -831,5 +831,3 @@ curl -X POST "<your_callback_url>"
 | updated_at     | string | last update time                                            |
 | sign           | string | signature string ,<a href='#sign'>See</a>                   |
 | device_type    | int    |                                                             |
-
-<a name='sign'>See</a>
