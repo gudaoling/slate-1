@@ -21,123 +21,21 @@ Welcome to Kinot open platform!You can use our API to access Lora device API end
 
 # Authentication
 
-> To authorize, use this code:
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-```
-
-### Public incoming parameters
-
-Public request parameters are required for each API.
-
-| Parameter name         | Location | Required? | Description                                                  |
-| ---------------------- | -------- | --------- | ------------------------------------------------------------ |
-| X-Ca-Key               | Header   | Yes       | Appkey, ID for an API call, which can be applied for on the Kinot open platform. |
-| X-Ca-Signature         | Header   | Yes       | Request signature string calculated using the signature calculation rule. For more information, see [Signature calculation rule](#Signature). |
-| X-Ca-Timestamp         | Header   | No        | Time stamp in milliseconds passed by the API caller, that is, the milliseconds from January 1, 1970 till now. A time stamp is valid for 15 minutes by default. |
-| X-Ca-Nonce             | Header   | No        | Unique ID of an API request. An X-Ca-Nonce cannot be used repeatedly within 15 minutes. UUID is recommended. It is used together with the time stamp to prevent replay. |
-| Content-MD5            | Header   | No        | When the requested Body is not a Form, the MD5 value of Body needs to be calculated and delivered to the cloud gateway for Body MD5 verification. |
-| X-Ca-Signature-Headers | Header   | No        | Headers containing signatures. Different values are separated by commas (,). By default, only X-Ca-Key contains a signature. To ensure security, add signatures to X-Ca-Timestamp and X-Ca-Nonce, for example, X-X-Ca-Signature-Headers:Ca-Timestamp,X-Ca-Nonce. |
-
-### <span id="Signature">Signature calculation rule
-
-Request signature, which is a digital signature calculated based on the request content. It is used by APIs to identify users. When the client calls an API, the client adds a calculated signature to the request (X-Ca-Signature).
-
-### Signature calculation process
-
-Prepare for the APPkey -> Construct the stringToSign -> Use Secret to calculate the signature.
-
-#### 1. Prepare for the AppKey.
-
-Appkey, ID for an API call, which can be applied for on the kinot open platform.
-
-##### 2. Construct the stringToSign.
+每个接口都要授权,所以调用<a href='#sign'>每个接口</a>都需要使用到公共请求参数，具体的细节请参考[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].
 
 
 
-**String stringToSign=**
-**HTTPMethod + "\n" +**
-**Accept + "\n" +                //It is recommended to set Accept Header. If Accept is empty, some HTTP clients set Accept to the default value */*. As a result, signature verification will fail.**
-**Content-MD5 + "\n"**
-**Content-Type + "\n" +**
-**Date + "\n" +**
-**Headers +**
-**Url**
+
+
+注意事项:
+
+<a name='secret'>签名使用到的AppKey和AppSecret,请联系管理员索要</a>.为了方便开发人员调试,下面提供了Postman和不同开发语言的SDK参考.
 
 
 
-###### HTTPMethod
+[通过Postman实现API网关的请求签名与调试](https://help.aliyun.com/document_detail/93641.html?spm=a2c4g.11186623.6.573.438332d8A3Zxon)
 
-The value is in capitals, for example, POST.
-
-
-
-**If Accept, Content-MD5, Content-Type, and Date are empty, add a linefeed "\n". If Headers is empty, "\n" is not required.**
-
-
-
-###### Content-MD5
-
-Content-MD5 refers to the MD5 value of Body. The MD5 value is calculated only when the Body is not Form. The calculation is as follows:
-
-**String content-MD5 = Base64.encodeBase64(MD5(bodyStream.getbytes("UTF-8"))); bodyStream indicates the byte array.**
-
-###### Headers
-
-Headers refer to the string consisting of the key and value of the header with signature. It is recommended to calculate signatures for the headers starting with X-Ca and custom headers. Note that the following parameters cannot be used for headers signature calculation: X-Ca-Signature, X-Ca-Signature-Headers, Accept, Content-MD5, Content-Type, and Date.
-
-###### Headers organization method:
-
-Sort the keys used for headers signature calculation in alphabetical order, and construct the string according to the following rule: If a value of the header is empty, signature is calculated using HeaderKey + “:” + “\n”. Key and the colon (:) cannot be removed.
-
-
-
-**String headers =**
-**HeaderKey1 + ":" + HeaderValue1 + "\n"\+**
-**HeaderKey2 + ":" + HeaderValue2 + "\n"\+**
-**...**
-**HeaderKeyN + ":" + HeaderValueN + "\n"**
-
-
-
-The header keys used for headers signature calculation are separated by commas, and placed into the header of request. The Key is X-Ca-Signature-Headers.
-
-###### Url
-
-URL refers to the Form parameter in Path + Query + Body. The URL is organized as follows: For the Query + Form parameters, the keys are sorted in alphabetical order. If the Query or Form parameter is null, URL is set to Path. The question mark (?) is not required. If the value of a parameter is null, only the key is reserved for signature. The equal sign (=) does not need to be added to the signature.
-
-
-
-**String url =**
-**Path +**
-**"?" +**
-**Key1 + "=" + Value1 +**
-**"&" + Key2 + "=" + Value2 +**
-**...**
-**"&" + KeyN + "=" + ValueN**
-
-
-
-Note that Query or Form may have multiple values. If there are multiple values, the first value is used for signature calculation.
-
-##### 3. Use Secret to calculate the signature.
-
-
-
-**Mac hmacSha256 = Mac.getInstance("HmacSHA256");**
-**byte[] keyBytes = secret.getBytes("UTF-8");**
-**hmacSha256.init(new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256"));**
-**String sign = new String(Base64.encodeBase64(Sha256.doFinal(stringToSign.getBytes("UTF-8")),"UTF-8"));**
-
-
-
-<a name='secret'>Secret is the APP's key </a>, which can be obtained from the Kinot open platform .
-
-
-
-#### Demo
+#### SDK Reference
 
 | Language | URL                                                    |
 | -------- | ------------------------------------------------------ |
@@ -149,14 +47,8 @@ Note that Query or Form may have multiple values. If there are multiple values, 
 
 
 
-Help:https://www.alibabacloud.com/help/doc-detail/43590.htm?spm=a2c63.p38356.b99.55.6f772eeaeSs3Zz
 
-Postman debug:https://help.aliyun.com/document_detail/93641.html?spm=5176.11065259.1996646101.searchclickresult.56371c7cDmDhLM
-
-
-
-
-# 1.Parking lockers(Lora)
+# <a name='api'>1.Parking lockers(Lora)</a>
 
 ## 1.1 Get All Parking lockers
 
