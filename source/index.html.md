@@ -242,16 +242,15 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
     "objects":[
         {
             "sn":419631107,
-            "heartbeat":7036,
             "voltage":3.659,
             "frequency":37.919,
-            "locked":7036,
-            "car_detected":7036,
-            "shell_opened":7036,
-            "low_battery":7036,
-            "coil_fault":7036,
-            "bar_position_error":7036,
-            "motor_fail":7036,
+            "locked":1,
+            "car_detected":1,
+            "shell_opened":0,
+            "low_battery":0,
+            "coil_fault":0,
+            "bar_position_error":0,
+            "motor_fail":0,
             "rs_si":0,
             "bt_match_code":"61518-59257-29505-55487-10411-15740",
             "bt_mac":"aa0018382001",
@@ -336,10 +335,10 @@ This endpoint retrieves all parking sensors.
 
 ### Query Parameters
 
-| Parameter | Type | Description               |
-| --------- | ---- | ------------------------- |
-| offset    | int  | 0<=offset<(count/limit)+1 |
-| limit     | int  | 10<=limit<=100            |
+| Parameter | Type | Description                |
+| --------- | ---- | -------------------------- |
+| offset    | int  | 0<=offset<=(count/limit)+1 |
+| limit     | int  | 10<=limit<=100             |
 
 ### Response body detail
 
