@@ -13,14 +13,9 @@
 
 #### Example：
 
-一、需要传递的参数如下：
+一、需要传递的参数(JSON)如下：
 
-{  
-
-​     "name":"foo",
-​     "age":"2",
-​     "username":"admin"
-}
+{  "name":"foo", "age":"2", "username":"admin"}
 
 
 
@@ -29,3 +24,4 @@
 三、经过第三步： age=2&name=foo&username=admin&**secret**=XXX
 
 四、经过第四部： sign = MD5(age=2&name=foo&username=admin&**secret**=XXX)
+
