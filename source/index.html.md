@@ -427,10 +427,10 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 ```json
 {
 	"sn": 419635201,
-	"command": 38,
+	"command": 1,
 	"parameter": {
-		"key": "actived",
-		"value": "yes"
+		"key": "default",
+		"value": "default"
 	}
 }
 ```
@@ -444,11 +444,11 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 	"objects": [{
 		"sn": 419635201,
 	    "guid":"ED33B369589222DB25B298C6E06C5DAE",
-		"command": 38,
+		"command": 1,
 	  	"command_status": "pending",
 		"parameter": {
-			"key": "actived",
-			"value": "yes"
+			"key": "default",
+			"value": "default"
 		}
 	}]
 }
@@ -462,11 +462,15 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 
 ### Request body detail
 
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| sn        | int  |             |
-| command   | int  | ?未定义     |
-| parameter | JSON | ?未说明     |
+| Parameter | Type | Description                                                  |
+| --------- | ---- | ------------------------------------------------------------ |
+| sn        | int  |                                                              |
+| command   | int  | 1.如果sn是车位小锁,command=1代表重置蓝牙匹配码,                                                 2.如果sn是车位雷达command=1代表激活设备 |
+| parameter | JSON | 该参数按照上面固定格式提交即可                               |
+
+
+
+
 
 ## 3.2 Get a Specific Command 
 
@@ -484,11 +488,11 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 	"objects": [{
 		"sn": 419635201,
 	    "guid":"ED33B369589222DB25B298C6E06C5DAE",
-		"command": 38,
+		"command": 1,
 	  	"command_status": "pending",
 		"parameter": {
-			"key": "actived",
-			"value": "yes"
+			"key": "default",
+			"value": "default"
 		}
 	}]
 }
@@ -524,9 +528,9 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
 
 ```json
 {
-    "device_type": 38, 
+    "device_type": 34, 
     "status_changed_callback_url": "<your_callback_url>", 
-    "commandResp_callback_url": "<your_callback_url>"
+    "command_resp_callback_url": "<your_callback_url>"
 }
 ```
 
@@ -619,7 +623,15 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
 ```json
 {
     "code":0,
-    "message":"OK"
+    "message":"OK",
+    "request_id":"19feab9dace17f0f9c6136969c621d76",
+    "objects":[
+        {
+            "sn":419631107,
+            "callback_url":"http://192.168.16.238/test",
+            "error_detail":"sent"
+        }
+    ]
 }
 ```
 
