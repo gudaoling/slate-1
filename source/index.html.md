@@ -157,7 +157,7 @@ Note that Query or Form may have multiple values. If there are multiple values, 
 ## 1.1 Get All Parking lockers
 
 ```shell
-curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=1&limit=10"
+curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10"
      -H "Content-Type: application/json"
 ```
 
@@ -196,7 +196,7 @@ This endpoint retrieves all parking lockers.
 
 ### HTTP Request
 
-`GET  http://device.api.parks8.com/open/open/lora/v1/lockers?offset=1&limit=10`
+`GET  http://device.api.parks8.com/open/open/lora/v1/lockers?offset=0&limit=10`
 
 ### Query Parameters
 
@@ -300,7 +300,7 @@ sn |int | The SN of the parking locker to retrieve
 ## 2.1 Get All Parking sensors
 
 ```shell
-curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=1&limit=10"
+curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10"
      -H "Content-Type: application/json"
 ```
 
