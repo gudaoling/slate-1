@@ -17,7 +17,7 @@ search: true
 
 # Introduction
 
-Welcome to Kinot open platform!You can use our API to access Lora device API endpoints, which can get information on various parking lockers,parking sensor in our database.
+Welcome to Kinot open platform!You can use our API to access Lora device API endpoints, which can get information on various parking lock,parking sensor in our database.
 
 # Authentication
 
@@ -45,12 +45,18 @@ gateway through Postman](https://help.aliyun.com/document_detail/93641.html?spm=
 | PHP      | https://github.com/aliyun/api-gateway-demo-sign-php    |
 |          |                                                        |
 
+[FAQ](https://www.alibabacloud.com/help/doc-detail/43906.htm?spm=a2c63.p38356.b99.199.758075c2F8qMF6)
 
 
 
-# <a name='api'>1.Parking lockers(Lora)</a>
 
-## 1.1 Get All Parking lockers
+
+
+
+
+# <a name='api'>1.Parking lock(Lora)</a>
+
+## 1.1 Get All Parking lock
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10"
@@ -88,7 +94,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10
 
 ```
 
-This endpoint retrieves all parking lockers.
+This endpoint retrieves all parking locks.
 
 ### HTTP Request
 
@@ -122,7 +128,7 @@ limit | int | 10<=limit<=100
 
 
 
-## 1.2 Get a Specific Parking locker
+## 1.2 Get a Specific Parking lock
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
@@ -156,7 +162,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
 }
 ```
 
-This endpoint retrieves a specific parking locker.
+This endpoint retrieves a specific parking lock.
 
 ### HTTP Request
 
@@ -166,7 +172,7 @@ This endpoint retrieves a specific parking locker.
 
 Parameter |Type | Description
 --------- | -----------| -----------
-sn |int | The SN of the parking locker to retrieve 
+sn |int | The SN of the parking lock to retrieve 
 
 ### Response body detail
 
@@ -191,9 +197,9 @@ sn |int | The SN of the parking locker to retrieve
 
 
 
-# 2.Parking sensors(Lora)
+# 2.Parking sensor(Lora)
 
-## 2.1 Get All Parking sensors
+## 2.1 Get All Parking sensor
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10"
@@ -223,7 +229,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10
 }
 ```
 
-This endpoint retrieves all parking sensors.
+This endpoint retrieves all parking sensor.
 
 ### HTTP Request
 
@@ -468,11 +474,11 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
 
 ### Request body detail
 
-| Parameter                   | Type   | Description                                                  |
-| --------------------------- | ------ | ------------------------------------------------------------ |
-| device_type                 | int    | number 18 means parking locker,number 34 means parking sensor |
-| status_changed_callback_url | string |                                                              |
-| commandResp_callback_url    | string |                                                              |
+| Parameter                   | Type   | Description                                                 |
+| --------------------------- | ------ | ----------------------------------------------------------- |
+| device_type                 | int    | number 18 means parking lock,number 34 means parking sensor |
+| status_changed_callback_url | string |                                                             |
+| commandResp_callback_url    | string |                                                             |
 
 ## 4.2 Get notification configuration info
 
@@ -506,9 +512,9 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type
 
 ### Query Parameters
 
-| Parameter   | Type | Description                                                  |
-| ----------- | ---- | ------------------------------------------------------------ |
-| device_type | int  | number 18 means parking locker,number 34 means parking sensor |
+| Parameter   | Type | Description                                                 |
+| ----------- | ---- | ----------------------------------------------------------- |
+| device_type | int  | number 18 means parking lock,number 34 means parking sensor |
 
 
 
@@ -562,7 +568,7 @@ This interface is used to test whether the callback address of each setting rece
 
 
 
-# 5.Notify-parking locker(Lora)
+# 5.Notify-parking lock(Lora)
 
 ## 5.1 Status changed
 
@@ -663,7 +669,7 @@ curl -X POST "<your_callback_url>"
 | Parameter      | Type   | Description                                                 |
 | -------------- | ------ | ----------------------------------------------------------- |
 | guid           | string | guid                                                        |
-| sn             | int    | SN of parking locker                                        |
+| sn             | int    | SN of parking lock                                          |
 | commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
 | reason         | string | reason of failed                                            |
 | updated_at     | string | last update time                                            |

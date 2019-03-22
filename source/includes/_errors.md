@@ -1,22 +1,22 @@
-# Errors
+# Error code table
+
+JSON structured:
+
+{
+    "code": 0,
+    "message": "OK"
+}
 
 
- error codes:
-
-
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Your request is invalid.
-401 | Unauthorized -- Your API key is wrong.
-403 | Forbidden . 
-404 | Not Found. 
-405 | Method Not Allowed . 
-406 | Not Acceptable. 
-410 | Gone . 
-418 | I'm a teapot.
-429 | Too Many Requests! 
-500 | Internal Server Error . 
-503 | Service Unavailable. 
+Code |message | Meaning
+---------- | -------| -------
+0 |OK | Successful 
+10016 | | API not found 
+10000 | | Internal service error. 
+10012 | | Http body parameter  is invalid. 
+10012 | | Http query parameter  is invalid. 
+10013 | | Http Path parameter  is invalid. 
+10111 | | Record not Exist 
 
 
 
