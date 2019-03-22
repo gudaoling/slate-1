@@ -101,7 +101,7 @@ Parameter | Type | Description
 offset | int | 0<=offset<=(count/limit)+1 
 limit | int | 10<=limit<=100 
 
-### Response body detail
+### <a name='locker'>Response body detail</a>
 
 | Parameter          | Type   | Description                                        |
 | ------------------ | ------ | -------------------------------------------------- |
@@ -170,22 +170,22 @@ sn |int | The SN of the parking locker to retrieve
 
 ### Response body detail
 
-| Parameter          | Type   | Description |
-| ------------------ | ------ | ----------- |
-| sn                 | int    |             |
-| voltage            | float  |             |
-| frequency          | float  |             |
-| locked             | int    |             |
-| car_detected       | int    |             |
-| shell_opened       | int    |             |
-| low_battery        | int    |             |
-| coil_fault         | int    |             |
-| bar_position_error | int    |             |
-| motor_fail         | int    |             |
-| rs_si              | float  |             |
-| bt_match_code      | string |             |
-| bt_mac             | string |             |
-| updated_at         | string |             |
+| Parameter          | Type   | Description                     |
+| ------------------ | ------ | ------------------------------- |
+| sn                 | int    | <a href='#locker'>reference</a> |
+| voltage            | float  |                                 |
+| frequency          | float  |                                 |
+| locked             | int    |                                 |
+| car_detected       | int    |                                 |
+| shell_opened       | int    |                                 |
+| low_battery        | int    |                                 |
+| coil_fault         | int    |                                 |
+| bar_position_error | int    |                                 |
+| motor_fail         | int    |                                 |
+| rs_si              | float  |                                 |
+| bt_match_code      | string |                                 |
+| bt_mac             | string |                                 |
+| updated_at         | string |                                 |
 
 
 
@@ -236,7 +236,7 @@ This endpoint retrieves all parking sensors.
 | offset    | int  | 0<=offset<=(count/limit)+1 |
 | limit     | int  | 10<=limit<=100             |
 
-### Response body detail
+### <a name='sensor'>Response body detail</a>
 
 | Parameter    | Type   | Description                                        |
 | ------------ | ------ | -------------------------------------------------- |
@@ -292,16 +292,16 @@ This endpoint retrieves a specific parking sensor.
 
 ### Response body detail
 
-| Parameter    | Type   | Description |
-| ------------ | ------ | ----------- |
-| sn           | int    |             |
-| voltage      | float  |             |
-| frequency    | float  |             |
-| car_detected | int    |             |
-| low_battery  | int    |             |
-| coil_fault   | int    |             |
-| rs_si        | float  |             |
-| updated_at   | string |             |
+| Parameter    | Type   | Description                     |
+| ------------ | ------ | ------------------------------- |
+| sn           | int    | <a href='#sensor'>reference</a> |
+| voltage      | float  |                                 |
+| frequency    | float  |                                 |
+| car_detected | int    |                                 |
+| low_battery  | int    |                                 |
+| coil_fault   | int    |                                 |
+| rs_si        | float  |                                 |
+| updated_at   | string |                                 |
 
 
 
@@ -321,7 +321,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 	"sn": 419635201,
 	"command": 1,
 	"parameter": {
-		"key": "default",
+		"key": "handle",
 		"value": 1
 	}
 }
@@ -339,7 +339,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 		"command": 1,
 	  	"command_status": "pending",
 		"parameter": {
-			"key": "default",
+			"key": "handle",
 			"value": 1
 		}
 	}]
@@ -356,11 +356,19 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 
 | Parameter | Type | Description                                                  |
 | --------- | ---- | ------------------------------------------------------------ |
-| sn        | int  |                                                              |
-| command   | int  | 1.如果sn是车位小锁,command=1代表重置蓝牙匹配码,                                                 2.如果sn是车位雷达command=1代表激活设备，command=2去激活。 |
-| parameter | JSON | 该参数按照上面固定格式提交即可                               |
+| sn        | int  | It can be a Parking sensor SN or a Parking lock Sn           |
+| command   | int  | Fixed value of 1                                             |
+| parameter | JSON | 1.If SN is parking lock, value=1 represents reset BlueTooth match code                        2.If SN is parking sensor,value=1 represents activation of equipment,value=2 represents  freezing of equipment. |
 
+### Response body detail
 
+| Parameter      | Type   | Description                                                 |
+| -------------- | ------ | ----------------------------------------------------------- |
+| guid           | string | guid                                                        |
+| sn             | int    |                                                             |
+| command        | int    |                                                             |
+| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
+| parameter      | json   |                                                             |
 
 
 
@@ -401,6 +409,16 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 | Parameter | Type   | Description                        |
 | --------- | ------ | ---------------------------------- |
 | guid      | string | returned after sending the command |
+
+### Response body detail
+
+| Parameter      | Type   | Description                                                 |
+| -------------- | ------ | ----------------------------------------------------------- |
+| guid           | string |                                                             |
+| sn             | int    |                                                             |
+| command        | int    |                                                             |
+| commnad_status | string | command state(sending=>pending=>arrived=>succeeded=>failed) |
+| parameter      | json   |                                                             |
 
 
 
@@ -471,7 +489,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type
     "message":"OK",
     "objects":[
         {
-            "device_type":38,
+            "device_type":18,
             "status_changed_callback_url":3.654,
             "command_resp_callback_url":38.6,
             "update_at":"2019-03-13T10:42:39+08:00",
@@ -591,7 +609,7 @@ curl -X POST "<your_callback_url>"
 
 | Parameter          | Type   | Description                                |
 | ------------------ | ------ | ------------------------------------------ |
-| sn                 | int    |                                            |
+| sn                 | int    | <a href='#locker'>reference</a>            |
 | voltage            | float  |                                            |
 | frequency          | float  |                                            |
 | locked             | int    |                                            |
@@ -695,14 +713,14 @@ curl -X POST "<your_callback_url>"
 
 | Parameter    | Type   | Description                              |
 | ------------ | ------ | ---------------------------------------- |
-| sn           | int    | 车位雷达SN                               |
-| voltage      | float  | 电池电压，计量单位为毫安(mv)             |
-| frequency    | float  | 线圈频率                                 |
-| car_detected | int    | 车辆检测状态(0:无车,1:有车)              |
-| low_battery  | int    | 电池状态(0:正常,1:电量低)                |
-| coil_fault   | int    | 线圈故障(0:正常,1:有故障)                |
-| rs_si        | float  | 信号强度,趋于0上下表示信号较强           |
-| updated_at   | string | last update time                         |
+| sn           | int    | <a href='#sensor'>reference</a>          |
+| voltage      | float  |                                          |
+| frequency    | float  |                                          |
+| car_detected | int    |                                          |
+| low_battery  | int    |                                          |
+| coil_fault   | int    |                                          |
+| rs_si        | float  |                                          |
+| updated_at   | string |                                          |
 | sign         | string | signature string,<a href='#sign'>See</a> |
 | device_type  | int    |                                          |
 
@@ -723,7 +741,7 @@ curl -X POST "<your_callback_url>"
 	"reason":"NULL",
     "updated_at": "2019-03-13T10:42:39+08:00",
     "sign":"641EB269A46944D404EC6BEF902E7918",
-    "device_type":38,
+    "device_type":34,
 }
 ```
 
