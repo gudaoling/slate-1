@@ -21,7 +21,7 @@ Welcome to Kinot open platform!You can use our API to access Lora device API end
 
 # Authentication
 
-每个接口都要授权,所以调用<a href='#sign'>每个接口</a>都需要使用到公共请求参数，具体的细节请参考[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].
+每个接口都要授权,所以调用<a href='#sign'>每个接口</a>都需要使用到公共请求参数，具体的细节请参考[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].[English](https://www.alibabacloud.com/help/doc-detail/29475.htm?spm=a2c63.p38356.b99.31.58d86accQr5HRF)
 
 
 
