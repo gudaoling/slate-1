@@ -21,19 +21,19 @@ Welcome to Kinot open platform!You can use our API to access Lora device API end
 
 # Authentication
 
-每个接口都要授权,所以调用<a href='#sign'>每个接口</a>都需要使用到公共请求参数，具体的细节请参考[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].[English](https://www.alibabacloud.com/help/doc-detail/29475.htm?spm=a2c63.p38356.b99.31.58d86accQr5HRF)
+Each interface must be authorized, so calling <a href='#sign'>each interface </a> requires the use of public request
+parameters. For details, please refer to[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].[English](https://www.alibabacloud.com/help/doc-detail/29475.htm?spm=a2c63.p38356.b99.31.58d86accQr5HRF)
 
 
 
+Precautions:
 
+Please turn to administrator for AppKey and AppSecret used
+for signature. To facilitate developer debugging, the SDK for Postman and other
+development languages are provided for your reference.
 
-注意事项:
-
-<a name='secret'>签名使用到的AppKey和AppSecret,请联系管理员索要</a>.为了方便开发人员调试,下面提供了Postman和不同开发语言的SDK参考.
-
-
-
-[通过Postman实现API网关的请求签名与调试](https://help.aliyun.com/document_detail/93641.html?spm=a2c4g.11186623.6.573.438332d8A3Zxon)
+[Request signing and debugging of API
+gateway through Postman](https://help.aliyun.com/document_detail/93641.html?spm=a2c4g.11186623.6.573.438332d8A3Zxon)
 
 #### SDK Reference
 
@@ -105,9 +105,9 @@ limit | int | 10<=limit<=100
 
 | Parameter          | Type   | Description                    |
 | ------------------ | ------ | ------------------------------ |
-| sn                 | int    | 车位小锁SN                     |
+| sn                 | int    | Parking lock SN                |
 | voltage            | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency          | float  | 线圈频率                       |
+| frequency          | float  | Loop coil frequency            |
 | locked             | int    | 锁状态(0:下锁,1:上锁)          |
 | car_detected       | int    | 车辆检测(0：无车,1:有车)       |
 | shell_opened       | int    | 外壳打开(0:正常,1:打开)        |
