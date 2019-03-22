@@ -103,22 +103,22 @@ limit | int | 10<=limit<=100
 
 ### Response body detail
 
-| Parameter          | Type   | Description                    |
-| ------------------ | ------ | ------------------------------ |
-| sn                 | int    | Parking lock SN                |
-| voltage            | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency          | float  | Loop coil frequency            |
-| locked             | int    | 锁状态(0:下锁,1:上锁)          |
-| car_detected       | int    | 车辆检测(0：无车,1:有车)       |
-| shell_opened       | int    | 外壳打开(0:正常,1:打开)        |
-| low_battery        | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault         | int    | 线圈故障(0:正常,1:有故障)      |
-| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)    |
-| motor_fail         | int    | 电机故障(0:正常,1:有故障)      |
-| rs_si              | float  | 信号强度,趋于0上下表示信号较强 |
-| bt_match_code      | string | 蓝牙匹配码                     |
-| bt_mac             | string | 蓝牙MAC                        |
-| updated_at         | string | 最后更新时间                   |
+| Parameter          | Type   | Description                                        |
+| ------------------ | ------ | -------------------------------------------------- |
+| sn                 | int    | Parking lock SN                                    |
+| voltage            | float  | Battery voltage in Milliamps (mv)                  |
+| frequency          | float  | Loop coil frequency                                |
+| locked             | int    | Lock status(0:down,1:up)                           |
+| car_detected       | int    | Space detection(0：available,1:occupied)           |
+| shell_opened       | int    | Cabinet open(0:Normal,1:open)                      |
+| low_battery        | int    | Battery status(0:Normal,1:low power)               |
+| coil_fault         | int    | Loop malfunction(0:normal,1:abnormal)              |
+| bar_position_error | int    | Bar position malfunction(0:Normal,1:abnormal)      |
+| motor_fail         | int    | Motor malfunction(0:Normal,1:abnormal)             |
+| rs_si              | float  | Signal strength, around 0 indicate stronger signal |
+| bt_match_code      | string | BlueTooth match code                               |
+| bt_mac             | string | BlueTooth MAC                                      |
+| updated_at         | string | Last update time                                   |
 
 
 
@@ -170,22 +170,22 @@ sn |int | The SN of the parking locker to retrieve
 
 ### Response body detail
 
-| Parameter          | Type   | Description                    |
-| ------------------ | ------ | ------------------------------ |
-| sn                 | int    | 车位小锁SN                     |
-| voltage            | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency          | float  | 线圈频率                       |
-| locked             | int    | 锁状态(0:下锁,1:上锁)          |
-| car_detected       | int    | 车辆检测(0：无车,1:有车)       |
-| shell_opened       | int    | 外壳打开(0:正常,1:打开)        |
-| low_battery        | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault         | int    | 线圈故障(0:正常,1:有故障)      |
-| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)    |
-| motor_fail         | int    | 电机故障(0:正常,1:有故障)      |
-| rs_si              | float  | 信号强度,趋于0上下表示信号较强 |
-| bt_match_code      | string | 蓝牙匹配码                     |
-| bt_mac             | string | 蓝牙MAC                        |
-| updated_at         | string | 最后更新时间                   |
+| Parameter          | Type   | Description |
+| ------------------ | ------ | ----------- |
+| sn                 | int    |             |
+| voltage            | float  |             |
+| frequency          | float  |             |
+| locked             | int    |             |
+| car_detected       | int    |             |
+| shell_opened       | int    |             |
+| low_battery        | int    |             |
+| coil_fault         | int    |             |
+| bar_position_error | int    |             |
+| motor_fail         | int    |             |
+| rs_si              | float  |             |
+| bt_match_code      | string |             |
+| bt_mac             | string |             |
+| updated_at         | string |             |
 
 
 
@@ -238,16 +238,16 @@ This endpoint retrieves all parking sensors.
 
 ### Response body detail
 
-| Parameter    | Type   | Description                    |
-| ------------ | ------ | ------------------------------ |
-| sn           | int    | 车位雷达SN                     |
-| voltage      | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency    | float  | 线圈频率                       |
-| car_detected | int    | 车辆检测状态(0:无车,1:有车)    |
-| low_battery  | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault   | int    | 线圈故障(0:正常,1:有故障)      |
-| rs_si        | float  | 信号强度,趋于0上下表示信号较强 |
-| updated_at   | string | 最后更新时间                   |
+| Parameter    | Type   | Description                                        |
+| ------------ | ------ | -------------------------------------------------- |
+| sn           | int    | Parking sensor SN                                  |
+| voltage      | float  | Battery voltage in Milliamps (mv)                  |
+| frequency    | float  | Loop coil frequency                                |
+| car_detected | int    | Space detection(0：available,1:occupied)           |
+| low_battery  | int    | Battery status(0:Normal,1:low power)               |
+| coil_fault   | int    | Loop malfunction(0:normal,1:abnormal)              |
+| rs_si        | float  | Signal strength, around 0 indicate stronger signal |
+| updated_at   | string | Last update time                                   |
 
 
 
@@ -292,16 +292,16 @@ This endpoint retrieves a specific parking sensor.
 
 ### Response body detail
 
-| Parameter    | Type   | Description                    |
-| ------------ | ------ | ------------------------------ |
-| sn           | int    | 车位雷达SN                     |
-| voltage      | float  | 电池电压，计量单位为毫安(mv)   |
-| frequency    | float  | 线圈频率                       |
-| car_detected | int    | 车辆检测状态(0:无车,1:有车)    |
-| low_battery  | int    | 电池状态(0:正常,1:电量低)      |
-| coil_fault   | int    | 线圈故障(0:正常,1:有故障)      |
-| rs_si        | float  | 信号强度,趋于0上下表示信号较强 |
-| updated_at   | string | 最后更新时间                   |
+| Parameter    | Type   | Description |
+| ------------ | ------ | ----------- |
+| sn           | int    |             |
+| voltage      | float  |             |
+| frequency    | float  |             |
+| car_detected | int    |             |
+| low_battery  | int    |             |
+| coil_fault   | int    |             |
+| rs_si        | float  |             |
+| updated_at   | string |             |
 
 
 
@@ -322,7 +322,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 	"command": 1,
 	"parameter": {
 		"key": "default",
-		"value": "default"
+		"value": 1
 	}
 }
 ```
@@ -340,7 +340,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 	  	"command_status": "pending",
 		"parameter": {
 			"key": "default",
-			"value": "default"
+			"value": 1
 		}
 	}]
 }
@@ -357,7 +357,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 | Parameter | Type | Description                                                  |
 | --------- | ---- | ------------------------------------------------------------ |
 | sn        | int  |                                                              |
-| command   | int  | 1.如果sn是车位小锁,command=1代表重置蓝牙匹配码,                                                 2.如果sn是车位雷达command=1代表激活设备 |
+| command   | int  | 1.如果sn是车位小锁,command=1代表重置蓝牙匹配码,                                                 2.如果sn是车位雷达command=1代表激活设备，command=2去激活。 |
 | parameter | JSON | 该参数按照上面固定格式提交即可                               |
 
 
@@ -384,7 +384,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 	  	"command_status": "pending",
 		"parameter": {
 			"key": "default",
-			"value": "default"
+			"value": 1
 		}
 	}]
 }
@@ -398,9 +398,9 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 
 ### Query Parameters
 
-| Parameter | Type   | Description          |
-| --------- | ------ | -------------------- |
-| guid      | string | 发送命令后返回的guid |
+| Parameter | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| guid      | string | returned after sending the command |
 
 
 
@@ -434,7 +434,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
     "message":"OK",
     "objects":[
         {
-            "device_type":38,
+            "device_type":34,
             "status_changed_callback_url":3.654,
             "command_resp_callback_url":38.6
         }
@@ -527,7 +527,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
 }
 ```
 
-该接口用于测试各设置的回调地址是否正常接收数据
+This interface is used to test whether the callback address of each setting receives data normally.
 
 ### HTTP Request
 
@@ -535,10 +535,10 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
 
 ### Request body detail
 
-| Parameter     | Type   | Description                             |
-| ------------- | ------ | --------------------------------------- |
-| sn            | int    |                                         |
-| callback_type | string | 二选一(“status_changed”,“command_resp”) |
+| Parameter     | Type   | Description                                |
+| ------------- | ------ | ------------------------------------------ |
+| sn            | int    |                                            |
+| callback_type | string | 2 option (“status_changed”,“command_resp”) |
 
 
 
@@ -591,18 +591,18 @@ curl -X POST "<your_callback_url>"
 
 | Parameter          | Type   | Description                                |
 | ------------------ | ------ | ------------------------------------------ |
-| sn                 | int    | 车位小锁SN                                 |
-| voltage            | float  | 电池电压，计量单位为毫安(mv)               |
-| frequency          | float  | 线圈频率                                   |
-| locked             | int    | 锁状态(0:下锁,1:上锁)                      |
-| car_detected       | int    | 车辆检测(0：无车,1:有车)                   |
-| shell_opened       | int    | 外壳打开(0:正常,1:打开)                    |
-| low_battery        | int    | 电池状态(0:正常,1:电量低)                  |
-| coil_fault         | int    | 线圈故障(0:正常,1:有故障)                  |
-| bar_position_error | int    | 栏位置故障(0:正常,1:有故障)                |
-| motor_fail         | int    | 电机故障(0:正常,1:有故障)                  |
-| rs_si              | float  | 信号强度,趋于0上下表示信号较强             |
-| updated_at         | string | last update time                           |
+| sn                 | int    |                                            |
+| voltage            | float  |                                            |
+| frequency          | float  |                                            |
+| locked             | int    |                                            |
+| car_detected       | int    |                                            |
+| shell_opened       | int    |                                            |
+| low_battery        | int    |                                            |
+| coil_fault         | int    |                                            |
+| bar_position_error | int    |                                            |
+| motor_fail         | int    |                                            |
+| rs_si              | float  |                                            |
+| updated_at         | string |                                            |
 | sign               | string | signature string  ,<a href='#sign'>See</a> |
 | device_type        | int    |                                            |
 

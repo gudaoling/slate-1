@@ -2,26 +2,26 @@
 
 #### Rule
 
-1. 参数名区分大小写；
+1. Parameter names are case sensitive.
 
 #### Step
 
-1. 将参数名ASCII码从小到大排序（字典序）；
-2. 使用‘&’和‘=’进行拼接
-3. 拼接最后的<a href='#secret '>Secret </a></a>；
-4. 使用大写32位md5获得签名
+1. Sort the parameter name ASCII code from from A-Z order.
+2. Stitch with ‘&’ and ‘=’ .
+3. Stitching the last <a href='#secret '>Secret </a> .
+4. Get the signature using uppercase 32-bit MD5 .
 
 #### Example：
 
-一、需要传递的参数(JSON)如下：
+一、The parameters that need to be passed (JSON) are as follows:
 
-{  "name":"foo", "age":"2", "username":"admin"}
+*{  "name":"foo", "age":"2", "username":"admin"}*
 
 
 
-二、经过1.2两步之后得到的字符串为： age=2&name=foo&username=admin
+二、After the 1 and 2 step, the string obtained is： *age=2&name=foo&username=admin*
 
-三、经过第三步： age=2&name=foo&username=admin&**secret**=XXX
+三、After the 3 step:： *age=2&name=foo&username=admin&**secret**=XXX*
 
-四、经过第四部： sign = MD5(age=2&name=foo&username=admin&**secret**=XXX)
+四、After the 4 step： *sign = MD5(age=2&name=foo&username=admin&**secret**=XXX)*
 
