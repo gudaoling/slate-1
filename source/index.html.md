@@ -50,9 +50,9 @@ gateway through Postman](https://help.aliyun.com/document_detail/93641.html?spm=
 
 
 
-# <a name='api'> Parking lock(Lora)</a>
+# <a name='api'>Parking lock(Lora)</a>
 
-## Get All Parking lock
+##  Get All Parking lock
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10"
@@ -195,7 +195,7 @@ sn |int | The SN of the parking lock to retrieve
 
 # Parking sensor(Lora)
 
-##  Get All Parking sensor
+## Get All Parking sensor
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10"
