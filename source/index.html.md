@@ -53,7 +53,7 @@ gateway through Postman](https://help.aliyun.com/document_detail/93641.html?spm=
 
 # Parking lock(Lora)
 
-##  <a name='api'> Get All Parking lock </a>
+## Get All Parking lock <a name='api'> </a>
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10"
