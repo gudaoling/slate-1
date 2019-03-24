@@ -54,9 +54,9 @@ gateway through Postman](https://help.aliyun.com/document_detail/93641.html?spm=
 
 
 
-# <a name='api'>1.Parking lock(Lora)</a>
+# <a name='api'>Parking lock(Lora)</a>
 
-## 1.1 Get All Parking lock
+## Get All Parking lock
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10"
@@ -128,7 +128,7 @@ limit | int | 10<=limit<=100
 
 
 
-## 1.2 Get a Specific Parking lock
+## Get a Specific Parking lock
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
@@ -197,9 +197,9 @@ sn |int | The SN of the parking lock to retrieve
 
 
 
-# 2.Parking sensor(Lora)
+# Parking sensor(Lora)
 
-## 2.1 Get All Parking sensor
+##  Get All Parking sensor
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10"
@@ -257,7 +257,7 @@ This endpoint retrieves all parking sensor.
 
 
 
-## 2.2 Get a Specific Parking sensor
+## Get a Specific Parking sensor
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors/<sn>"
@@ -311,9 +311,66 @@ This endpoint retrieves a specific parking sensor.
 
 
 
-# 3. Command
 
-## 3.1 Send command
+
+# Gateway Dtu Device (Lora)
+
+## Get a Specific Dtu device
+
+```shell
+curl -X GET "http://device.api.parks8.com/open/lora/v1/dtu_devices/<sn>"
+     -H "Content-Type: application/json"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":644219880,
+            "hw":4097,
+            "sw":8193,
+            "firmware":17,
+            "host":"218.204.252.18:44062",
+            "online":"online",
+            "updated_at":"2019-03-24T17:03:44+08:00"
+        }
+    ]
+}
+```
+
+This endpoint retrieves a specific Dtu device .
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/open/lora/v1/dtu_devices/<sn>`
+
+### URL Parameters
+
+| Parameter | Type | Description                          |
+| --------- | ---- | ------------------------------------ |
+| sn        | int  | The SN of the Dtu device to retrieve |
+
+### Response body detail
+
+| Parameter  | Type   | Description           |
+| ---------- | ------ | --------------------- |
+| sn         | int    | Dtu SN                |
+| hw         | int    | hardware version      |
+| sw         | int    | software version      |
+| firmware   | int    | firmware version      |
+| host       | string | client host           |
+| online     | string | ‘online’ or ‘offline’ |
+| updated_at | string | last update time      |
+
+
+
+# Command
+
+##  Send command
 
 ```shell
 curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
@@ -378,7 +435,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/commands"
 
 
 
-## 3.2 Get a Specific Command 
+##  Get a Specific Command 
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
@@ -430,9 +487,9 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/commands?guid=<guid>"
 
 
 
-# 4. Subscribe
+#  Subscribe
 
-## 4.1 Set  notification configuration info
+##  Set  notification configuration info
 
 ```shell
 
@@ -480,7 +537,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
 | status_changed_callback_url | string |                                                             |
 | commandResp_callback_url    | string |                                                             |
 
-## 4.2 Get notification configuration info
+## Get notification configuration info
 
 ```shell
 curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type=<18>"
@@ -518,7 +575,7 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/notifications?device_type
 
 
 
-## 4.3 Test notification
+##  Test notification
 
 ```shell
 curl -X POST "http://device.api.parks8.com/open/lora/v1/test/notifications"
@@ -568,9 +625,9 @@ This interface is used to test whether the callback address of each setting rece
 
 
 
-# 5.Notify-parking lock(Lora)
+# Notify-parking lock(Lora)
 
-## 5.1 Status changed
+##  Status changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -630,7 +687,7 @@ curl -X POST "<your_callback_url>"
 | sign               | string | signature string  ,<a href='#sign'>See</a> |
 | device_type        | int    |                                            |
 
-## 5.2 Command changed
+## Command changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -676,9 +733,9 @@ curl -X POST "<your_callback_url>"
 | sign           | string | signature string ,<a href='#sign'>See</a>                   |
 | device_type    | int    |                                                             |
 
-# 6.Notify-parking sensor(Lora)
+# Notify-parking sensor(Lora)
 
-## 6.1 Status changed
+##  Status changed
 
 ```shell
 curl -X POST "<your_callback_url>"
@@ -730,7 +787,7 @@ curl -X POST "<your_callback_url>"
 | sign         | string | signature string,<a href='#sign'>See</a> |
 | device_type  | int    |                                          |
 
-## 6.2 Command changed
+## Command changed
 
 ```shell
 curl -X POST "<your_callback_url>"
