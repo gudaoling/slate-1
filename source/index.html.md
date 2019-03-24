@@ -312,6 +312,63 @@ This endpoint retrieves a specific parking sensor.
 
 # Gateway Dtu Device (Lora)
 
+## Get All Dtu device
+
+```shell
+curl -X GET "http://device.api.parks8.com/open/lora/v1/dtu_devices?offset=0&limit=10"
+     -H "Content-Type: application/json"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":644219880,
+            "hw":4097,
+            "sw":8193,
+            "firmware":17,
+            "host":"218.204.252.18:44062",
+            "online":"online",
+            "updated_at":"2019-03-24T17:03:44+08:00"
+        }
+    ],
+   "count":1
+}
+```
+
+This endpoint retrieves all Dtu device.
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/open/lora/v1/dtu_devices?offset=1&limit=10`
+
+### Query Parameters
+
+| Parameter | Type | Description                |
+| --------- | ---- | -------------------------- |
+| offset    | int  | 0<=offset<=(count/limit)+1 |
+| limit     | int  | 10<=limit<=100             |
+
+### Response body detail
+
+| Parameter  | Type   | Description           |
+| ---------- | ------ | --------------------- |
+| sn         | int    | Dtu SN                |
+| hw         | int    | hardware version      |
+| sw         | int    | software version      |
+| firmware   | int    | firmware version      |
+| host       | string | client host           |
+| online     | string | ‘online’ or ‘offline’ |
+| updated_at | string | last update time      |
+
+
+
+
+
 ## Get a Specific Dtu device
 
 ```shell
