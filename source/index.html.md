@@ -95,7 +95,7 @@ This endpoint retrieves all parking locks.
 
 ### HTTP Request
 
-`GET  http://device.api.parks8.com/open/open/lora/v1/lockers?offset=0&limit=10`
+`GET  http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10`
 
 ### Query Parameters
 
