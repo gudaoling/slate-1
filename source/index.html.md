@@ -82,7 +82,6 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers?offset=0&limit=10
             "motor_fail":0,
             "rs_si":0,
             "bt_match_code":"61518-59257-29505-55487-10411-15740",
-            "bt_mac":"aa0018382001",
             "updated_at":"2019-03-13T10:42:39+08:00"
         }
     ],
@@ -120,7 +119,6 @@ limit | int | 10<=limit<=100
 | motor_fail         | int    | Motor malfunction(0:Normal,1:abnormal)             |
 | rs_si              | float  | Signal strength, around 0 indicate stronger signal |
 | bt_match_code      | string | BlueTooth match code                               |
-| bt_mac             | string | BlueTooth MAC                                      |
 | updated_at         | string | Last update time                                   |
 
 
@@ -152,7 +150,6 @@ curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>"
             "motor_fail":0,
             "rs_si":0,
             "bt_match_code":"61518-59257-29505-55487-10411-15740",
-            "bt_mac":"aa0018382001",
             "updated_at":"2019-03-13T10:42:39+08:00"
         }
     ],
@@ -187,7 +184,6 @@ sn |int | The SN of the parking lock to retrieve
 | motor_fail         | int    |                                 |
 | rs_si              | float  |                                 |
 | bt_match_code      | string |                                 |
-| bt_mac             | string |                                 |
 | updated_at         | string |                                 |
 
 
