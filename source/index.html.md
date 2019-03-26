@@ -22,7 +22,7 @@ Welcome to Kinot open platform!You can use our API to access Lora device API end
 # Authentication
 
 Each interface must be authorized, so calling <a href='#sign'>each interface </a> requires the use of public request
-parameters. For details, please refer to[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].[English](https://www.alibabacloud.com/help/doc-detail/29475.htm?spm=a2c63.p38356.b99.31.58d86accQr5HRF)
+parameters. For details, please refer to[[请求签名说明文档](https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.6.572.f7ee2ca7sdQgGP)].[Request signature description](https://www.alibabacloud.com/help/doc-detail/29475.htm?spm=a2c63.p38356.b99.31.58d86accQr5HRF)
 
 
 
@@ -230,14 +230,14 @@ This endpoint retrieves all parking sensor.
 
 ### HTTP Request
 
-`GET http://device.api.parks8.com/open/lora/v1/sensors?offset=1&limit=10`
+`GET http://device.api.parks8.com/open/lora/v1/sensors?offset=0&limit=10`
 
 ### Query Parameters
 
-| Parameter | Type | Description                |
-| --------- | ---- | -------------------------- |
-| offset    | int  | 0<=offset<=(count/limit)+1 |
-| limit     | int  | 10<=limit<=100             |
+| Parameter | Type | Description                   |
+| --------- | ---- | ----------------------------- |
+| offset    | int  | 0<=offset<=(count/limit)+1,de |
+| limit     | int  | 10<=limit<=100                |
 
 ### <a name='sensor'>Response body detail</a>
 
@@ -886,3 +886,4 @@ curl -X POST "<your_callback_url>"
 | updated_at     | string | last update time                                            |
 | sign           | string | signature string ,<a href='#sign'>See</a>                   |
 | device_type    | int    |                                                             |
+
