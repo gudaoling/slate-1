@@ -585,7 +585,7 @@ curl -X POST "http://device.api.parks8.com/open/lora/v1/notifications"
 | --------------------------- | ------ | ----------------------------------------------------------- |
 | device_type                 | int    | number 18 means parking lock,number 34 means parking sensor |
 | status_changed_callback_url | string |                                                             |
-| commandResp_callback_url    | string |                                                             |
+| command_resp_callback_url   | string |                                                             |
 
 ## Get notification configuration info
 
