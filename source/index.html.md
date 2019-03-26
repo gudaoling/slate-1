@@ -701,7 +701,7 @@ curl -X POST "<your_callback_url>"
 	"rs_si": 1,
 	"updated_at": "2019-03-13T10:42:39+08:00",
     "sign":"641EB269A46944D404EC6BEF902E7918",
-    "device_type":38,
+    "device_type":34,
 }
 ```
 
@@ -754,7 +754,7 @@ curl -X POST "<your_callback_url>"
 	"reason":"NULL",
     "updated_at": "2019-03-13T10:42:39+08:00",
     "sign":"641EB269A46944D404EC6BEF902E7918",
-     "device_type":38,
+     "device_type":34,
 }
 ```
 
