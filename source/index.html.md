@@ -3,10 +3,10 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
+  - example(Just for example, don't use curl requests) 
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='#'>_</a>
 
 includes:
   - sign
@@ -105,21 +105,21 @@ limit | int | 10<=limit<=100
 
 ### <a name='locker'>Response body detail</a>
 
-| Parameter          | Type   | Description                                        |
-| ------------------ | ------ | -------------------------------------------------- |
-| sn                 | int    | Parking lock SN                                    |
-| voltage            | float  | Battery voltage in Milliamps (mv)                  |
-| frequency          | float  | Loop coil frequency                                |
-| locked             | int    | Lock status(0:down,1:up)                           |
-| car_detected       | int    | Space detection(0：available,1:occupied)           |
-| shell_opened       | int    | Cabinet open(0:Normal,1:open)                      |
-| low_battery        | int    | Battery status(0:Normal,1:low power)               |
-| coil_fault         | int    | Loop malfunction(0:normal,1:abnormal)              |
-| bar_position_error | int    | Bar position malfunction(0:Normal,1:abnormal)      |
-| motor_fail         | int    | Motor malfunction(0:Normal,1:abnormal)             |
-| rs_si              | float  | Signal strength, around 0 indicate stronger signal |
-| bt_match_code      | string | BlueTooth match code                               |
-| updated_at         | string | Last update time                                   |
+| Parameter          | Type      | Description                                                  |
+| ------------------ | --------- | ------------------------------------------------------------ |
+| sn                 | int       | Parking lock SN                                              |
+| voltage            | float     | Battery voltage in Milliamps (mv)                            |
+| frequency          | float     | Loop coil frequency                                          |
+| locked             | int       | Lock status(0:down,1:up)                                     |
+| car_detected       | int       | Space detection(0：available,1:occupied)                     |
+| shell_opened       | int       | Cabinet open(0:Normal,1:open)                                |
+| low_battery        | int       | Battery status(0:Normal,1:low power)                         |
+| coil_fault         | int       | Loop malfunction(0:normal,1:abnormal)                        |
+| bar_position_error | int       | Bar position malfunction(0:Normal,1:abnormal)                |
+| motor_fail         | int       | Motor malfunction(0:Normal,1:abnormal)                       |
+| ~~rs_si~~          | ~~float~~ | ~~Signal strength, around 0 indicate stronger signal   (abandon)~~ |
+| bt_match_code      | string    | BlueTooth match code                                         |
+| updated_at         | string    | Last update time                                             |
 
 
 
@@ -185,6 +185,51 @@ sn |int | The SN of the parking lock to retrieve
 | rs_si              | float  |                                 |
 | bt_match_code      | string |                                 |
 | updated_at         | string |                                 |
+
+
+
+## Get All Dtu Device that belongs to the parking lock
+
+```shell
+curl -X GET "http://device.api.parks8.com/open/lora/v1/lockers/<sn>/dtu_devices"
+     -H "Content-Type: application/json"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419631107,
+            "rs_si":-53.5,
+            "updated_at":"2019-03-13T10:42:39+08:00"
+        }
+    ],
+}
+```
+
+
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/open/lora/v1/lockers/<sn>/dtu_devices`
+
+### URL Parameters
+
+| Parameter | Type | Description                            |
+| --------- | ---- | -------------------------------------- |
+| sn        | int  | The SN of the parking lock to retrieve |
+
+### Response body detail
+
+| Parameter  | Type   | Description      |
+| ---------- | ------ | ---------------- |
+| sn         | int    | DTU SN           |
+| rs_si      | float  | signal strength  |
+| updated_at | string | last update time |
 
 
 
@@ -301,6 +346,55 @@ This endpoint retrieves a specific parking sensor.
 | coil_fault   | int    |                                 |
 | rs_si        | float  |                                 |
 | updated_at   | string |                                 |
+
+
+
+## Get All Dtu Device that belongs to the parking sensor
+
+```shell
+curl -X GET "http://device.api.parks8.com/open/lora/v1/sensors/<sn>/dtu_devices"
+     -H "Content-Type: application/json"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "code":0,
+    "message":"OK",
+    "objects":[
+        {
+            "sn":419631107,
+            "rs_si":-53.5,
+            "updated_at":"2019-03-13T10:42:39+08:00"
+        }
+    ],
+}
+```
+
+
+
+### HTTP Request
+
+`GET http://device.api.parks8.com/open/lora/v1/sensors/<sn>/dtu_devices`
+
+### URL Parameters
+
+| Parameter | Type | Description                            |
+| --------- | ---- | -------------------------------------- |
+| sn        | int  | The SN of the parking lock to retrieve |
+
+### Response body detail
+
+| Parameter  | Type   | Description      |
+| ---------- | ------ | ---------------- |
+| sn         | int    | DTU SN           |
+| rs_si      | float  | signal strength  |
+| updated_at | string | last update time |
+
+
+
+
 
 
 
